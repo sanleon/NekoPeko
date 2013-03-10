@@ -20,7 +20,8 @@
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-
+    apiConnection = [APIConnection sharedAPIConnection];
+    [apiConnection connecToServer];
 	// Create an CCGLView with a RGB565 color buffer, and a depth buffer of 0-bits
 	CCGLView *glView = [CCGLView viewWithFrame:[window_ bounds]
 								   pixelFormat:kEAGLColorFormatRGB565	//kEAGLColorFormatRGBA8
@@ -86,6 +87,7 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+
 	
 	return YES;
 }
@@ -93,7 +95,7 @@
 // Supported orientations: Landscape. Customize it for your own needs
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+	return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
 
 
@@ -141,8 +143,38 @@
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
 }
 
+- (void) receivedErrorFromAction:(NSString *)message
+{
+
+        NSLog(@"Error Message : %@", message);
+        // TODO
+        // GameLayerを表示します
+        
+    
+}
+
+- (void) receivedMessageFromLoginToServer:(NSDictionary *)messageDic
+{
+
+    BOOL result = NO;
+    if (messageDic != nil) {
+        result = [messageDic valueForKey:@"login"];
+        NSLog(@"result : %d", result);
+    }
+    
+    if (result) {
+        // GameLayerを表示します
+        //        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
+        //        [someField setHidden:YES];
+    }
+    //    [apiConnection closeToServer];
+    
+}
+
+
 - (void) dealloc
 {
+    [apiConnection closeToServer];
 	[window_ release];
 	[navController_ release];
 
