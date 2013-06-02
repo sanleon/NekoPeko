@@ -25,6 +25,9 @@
 @synthesize IsTouchHold = _IsTouchHold;
 @synthesize animate, animation;
 @synthesize NumLabel;
+@synthesize origPositionX, origPositionY;
+@synthesize actionList;
+@synthesize boneFishAnimation, bonFishAnimate, normalFishAnimate, normalFishAnimation, isBone;
 //@synthesize animation1, animation2, animation3;
 
 
@@ -32,6 +35,7 @@
 {
     if (self = [super init]) {
         _num = 0;
+        
                 _numLabel = nil;
 //        animationImage1 = nil;
 //        animationImage2 = nil;
@@ -161,6 +165,10 @@
 {
     [super onEnter];
     
+    
+    actionList = [[NSMutableArray alloc]init];
+
+    
     [[CCDirector sharedDirector].touchDispatcher addTargetedDelegate:self priority:-9 swallowsTouches:YES];
     // 通知センタのオブザーバ登録
 //	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotifyFromNotificationCenter:) name:nil object:nil];
@@ -172,8 +180,147 @@
 
     
 
-    [self setClickNumLabel];
+//    [self setClickNumLabel];
+    
+//    [self schedule: @selector(minusRotateTile) interval:0.3f];
+    
+//    [self schedule: @selector(rotateTile) interval:0.5f];
+//    [self schedule: @selector(moveTile) interval:0.3f];
+
+    
+//    id minusRotate = [CCRotateBy actionWithDuration:0.3 angle:-15];
+//
+//    id plusRotate = [CCRotateBy actionWithDuration:0.3 angle:30];
+//
+//    id roop = [CCRepeatForever actionWithAction:plusRotate];
+//    id minusloop = [CCRepeatForever actionWithAction:minusRotate];
+//    
+//    id plusloop = [CCRepeatForever actionWithAction:plusRotate];
+//    CCSequence *asequence = [CCSequence actions:minusRotate, plusRotate,nil];
+//
+//    [self runAction:minusloop];
+//    [self stopAction:minusloop];
+//    [self runAction:roop];
+//    [self stopAction:roop];
+//    
+    
 //    [self createAnimation];
+}
+
+- (void) setTileAction
+{
+    id plusRotate = [CCRotateTo actionWithDuration:0.3 angle:5];
+    id plusloop = [CCRepeat actionWithAction:plusRotate times:1];
+    [actionList addObject:plusloop];
+    id minusRotate = [CCRotateTo actionWithDuration:0.3 angle:-14];
+    id minusloop = [CCRepeat actionWithAction:minusRotate times:1];
+    [actionList addObject:minusloop];
+    id plusRotate2 = [CCRotateTo actionWithDuration:0.3 angle:10];
+    id plusloop2 = [CCRepeat actionWithAction:plusRotate2 times:1];
+    [actionList addObject:plusloop2];
+    id minusRotate2 = [CCRotateTo actionWithDuration:0.3 angle:-5];
+    id minusloop2 = [CCRepeat actionWithAction:minusRotate2 times:1];
+    [actionList addObject:minusloop2];
+
+
+
+    id moveUp = [CCMoveTo actionWithDuration:0.5 position:ccp(self.origPositionX, self.origPositionY+1)];
+    id moveUploop = [CCRepeat actionWithAction:moveUp times:1];
+    [actionList addObject:moveUploop];
+    id moveDown = [CCMoveTo actionWithDuration:0.5 position:ccp(self.origPositionX, self.origPositionY-1)];
+    id moveDownloop = [CCRepeat actionWithAction:moveDown times:1];
+    [actionList addObject:moveDownloop];
+    id moveRight = [CCMoveTo actionWithDuration:0.5 position:ccp(self.origPositionX-1,  self.origPositionY)];
+    id moveRightloop = [CCRepeat actionWithAction:moveRight times:1];
+    [actionList addObject:moveRightloop];
+    id moveleft = [CCMoveTo actionWithDuration:0.5 position:ccp(self.origPositionX+1, self.origPositionY)];
+    id moveleftloop = [CCRepeat actionWithAction:moveleft times:1];
+    [actionList addObject:moveleftloop];
+
+    
+}
+
+- (void) addOriginMoveAction
+{
+    
+    
+    id originalRotate = [CCRotateTo actionWithDuration:0.3 angle:0];
+    id originalloop = [CCRepeat actionWithAction:originalRotate times:1];
+    
+    
+//    id moveOriginal = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX, self.origPositionY)];
+//    id moveOriginalloop = [CCRepeat actionWithAction:moveOriginal times:1];
+    
+    [actionList addObject:originalloop];
+//    [actionList addObject:moveOriginalloop];
+}
+
+- (void) rotateTile
+{
+//    id plusRotate = [CCRotateTo actionWithDuration:0.3 angle:15];
+//    id plusloop = [CCRepeat actionWithAction:plusRotate times:1];
+//    
+//    id minusRotate = [CCRotateTo actionWithDuration:0.3 angle:-15];
+//    id minusloop = [CCRepeat actionWithAction:minusRotate times:1];
+//    
+//    id plusRotate2 = [CCRotateTo actionWithDuration:0.3 angle:15];
+//    id plusloop2 = [CCRepeat actionWithAction:plusRotate2 times:1];
+//    
+//    id minusRotate2 = [CCRotateTo actionWithDuration:0.3 angle:-15];
+//    id minusloop2 = [CCRepeat actionWithAction:minusRotate2 times:1];
+//    
+//    id moveUp = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX, self.origPositionY+10)];
+//    id moveUploop = [CCRepeat actionWithAction:moveUp times:1];
+//    id moveDown = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX, self.origPositionY-10)];
+//    id moveDownloop = [CCRepeat actionWithAction:moveDown times:1];
+//    id moveRight = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX-10,  self.origPositionY)];
+//    id moveRightloop = [CCRepeat actionWithAction:moveRight times:1];
+//    id moveleft = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX+10, self.origPositionY)];
+//    id moveleftloop = [CCRepeat actionWithAction:moveleft times:1];
+//    id moveOriginal = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX, self.origPositionY)];
+
+    CCSequence *asequence = [CCSequence actionWithArray:actionList];
+
+        [self runAction:asequence];
+
+}
+
+//- (void) moveTile
+//{
+//    id moveUp = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX, self.origPositionY+15)];
+//    id moveUploop = [CCRepeat actionWithAction:moveUp times:1];
+//    id moveDown = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX, self.origPositionY-15)];
+//    id moveDownloop = [CCRepeat actionWithAction:moveDown times:1];
+//    id moveRight = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX-15,  self.origPositionY)];
+//    id moveRightloop = [CCRepeat actionWithAction:moveRight times:1];
+//    id moveleft = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX+15, self.origPositionY)];
+//    id moveleftloop = [CCRepeat actionWithAction:moveleft times:1];
+//    id moveOriginal = [CCMoveTo actionWithDuration:0.3 position:ccp(self.origPositionX, self.origPositionY)];
+//    CCSequence *asequenceMoveTile = [CCSequence actions:moveUploop, moveRightloop,moveleftloop,moveDownloop ,moveOriginal,nil];
+//    
+//    [self runAction:asequenceMoveTile];
+//    
+//}
+
+- (void)shuffleAction
+{
+    for (uint i = 0; i < actionList.count; ++i)
+    {
+        // Select a random element between i and end of array to swap with.
+        int nElements = actionList.count - i;
+        int n = arc4random_uniform(nElements) + i;
+        [actionList exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
+}
+
+- (void) minusRotateTile
+{
+    id minusRotate = [CCRotateBy actionWithDuration:0.3 angle:-15];
+    id minusloop = [CCRepeat actionWithAction:minusRotate times:1];
+    if (![self isRunning]) {
+        [self stopAction:minusloop];
+        [self runAction:minusloop];
+    }
 }
 
 - (void) onExit
@@ -295,8 +442,10 @@
 -(void) NotifyFromNotificationCenter:(NSNotification*)notification
 {
     if ([notification.name isEqualToString:[NSString stringWithFormat:@"CountNum-%d", _num]]) {
-        _numLabel.visible = NO;
-        
+        [self stopAllActions];
+        [self unschedule:@selector(rotateTile)];
+        [self setIsBone:YES];
+        [self runAction:bonFishAnimate];
 //        _imgBlinkFrame.opacity = 255;
 //        _imgBlinkFrame.visible = YES;
 //        id fadeOut = [CCFadeTo actionWithDuration:0.3 opacity:0];
@@ -413,59 +562,77 @@
 //		[self schedule:@selector(removeAndAddSprite:) interval:2];
         
     } else if ([notification.name isEqualToString:[NSString stringWithFormat:@"AnimationTileNum-%d", _num]]) {
-        if([self isRunning]) {
-            [self stopAction:animate];
-            [self runAction:animate];
-        } else {
-            [self runAction:animate];
+        if (self.isBone == NO) {
+            //        [self stopAction:normalFishAnimate];
+            //        CCMoveTo *moveUp = [CCMoveTo actionWithDuration:0.3 position:ccp(self.position.x, self.position.y+3)];
+            //        CCMoveTo *moveDown = [CCMoveTo actionWithDuration:0.3 position:ccp(self.position.x, self.position.y-3)];
+            //        CCMoveTo *moveRight = [CCMoveTo actionWithDuration:0.3 position:ccp(self.position.x-3, self.position.y)];
+            //        CCMoveTo *moveleft = [CCMoveTo actionWithDuration:0.3 position:ccp(self.position.x+3, self.position.y)];
+            //        CCMoveTo *moveOriginal = [CCMoveTo actionWithDuration:0.3 position:ccp(self.position.x, self.position.y)];
+            
+            //        CCSequence* seq = [CCSequence actions:animate,moveUp,  moveRight, moveDown, moveleft,moveOriginal,nil];
+            CCSequence* seq = [CCSequence actions:animate,nil];
+            if([self isRunning]) {
+                
+                [self stopAction:seq];
+                [self runAction:seq];
+            } else {
+                [self runAction:seq];
+            }
         }
- 
 
+ 
     }
 	if ([notification.name isEqualToString: TILE_MSG_NOTIFY_TOUCH_END]) {
     }
     
-    if ([notification.name isEqualToString:[NSString stringWithFormat:@"ClickNow-%d", _num]]) {
-        CCLOG(@"touch");
-                [self unscheduleUpdate];
-//        animationImage1.position = self.position;
-//        animationImage2.position = self.position;
-//        NSLog(@"Self Position x : %f, y : %f", self.position.x, self.position.y);
-//         NSLog(@"Animation Position x : %f, y : %f", animationImage1.position.x, animationImage1.position.y);
-        self.visible = NO;
-//        CCSprite* animationimage = [CCSprite spriteWithFile:@"fish_01.png"];
-//        // 画像の配置場所の設定
-//        animationimage.position = CGPointMake(self.contentSize.width / 2, self.contentSize.height / 2);
-//        [self addChild:animationimage z:4];
-        //        CCSprite *frameImage1 = [CCSprite spriteWithCGImage:[self shapingImageNamed:@"fish_01.png"].CGImage key:nil];
-        //        CCSprite *frameImage2 = [CCSprite spriteWithCGImage:[self shapingImageNamed:@"fish_02.png"].CGImage key:nil];
-        //        CCSprite *frameImage3 = [CCSprite spriteWithCGImage:[self shapingImageNamed:@"fish_03.png"].CGImage key:nil];
-        //
-        //        CCSpriteFrame* frame1 = [CCSpriteFrame frameWithTexture:frameImage1.texture rect:CGRectMake(0,0,self.contentSize.width,self.contentSize.height)];
-        //        CCSpriteFrame* frame2 = [CCSpriteFrame frameWithTexture:frameImage2.texture rect:CGRectMake(0,0,self.contentSize.width,self.contentSize.height)];
-        //        CCSpriteFrame* frame3 = [CCSpriteFrame frameWithTexture:frameImage3.texture rect:CGRectMake(0,0,self.contentSize.width,self.contentSize.height)];
-        //
-        //        [animation addSpriteFrame:frame1];
-        //
-        //        [animation addSpriteFrame:frame2];
-        //        
-        //        [animation addSpriteFrame:frame3];
+//    if ([notification.name isEqualToString:[NSString stringWithFormat:@"ClickNow-%d", _num]]) {
+//        CCLOG(@"touch");
+//                [self unscheduleUpdate];
+//
+////        animationImage1.position = self.position;
+////        animationImage2.position = self.position;
+////        NSLog(@"Self Position x : %f, y : %f", self.position.x, self.position.y);
+////         NSLog(@"Animation Position x : %f, y : %f", animationImage1.position.x, animationImage1.position.y);
+//        self.visible = NO;
+////        CCSprite* animationimage = [CCSprite spriteWithFile:@"fish_01.png"];
+////        // 画像の配置場所の設定
+////        animationimage.position = CGPointMake(self.contentSize.width / 2, self.contentSize.height / 2);
+////        [self addChild:animationimage z:4];
+//        //        CCSprite *frameImage1 = [CCSprite spriteWithCGImage:[self shapingImageNamed:@"fish_01.png"].CGImage key:nil];
+//        //        CCSprite *frameImage2 = [CCSprite spriteWithCGImage:[self shapingImageNamed:@"fish_02.png"].CGImage key:nil];
+//        //        CCSprite *frameImage3 = [CCSprite spriteWithCGImage:[self shapingImageNamed:@"fish_03.png"].CGImage key:nil];
+//        //
+//        //        CCSpriteFrame* frame1 = [CCSpriteFrame frameWithTexture:frameImage1.texture rect:CGRectMake(0,0,self.contentSize.width,self.contentSize.height)];
+//        //        CCSpriteFrame* frame2 = [CCSpriteFrame frameWithTexture:frameImage2.texture rect:CGRectMake(0,0,self.contentSize.width,self.contentSize.height)];
+//        //        CCSpriteFrame* frame3 = [CCSpriteFrame frameWithTexture:frameImage3.texture rect:CGRectMake(0,0,self.contentSize.width,self.contentSize.height)];
+//        //
+//        //        [animation addSpriteFrame:frame1];
+//        //
+//        //        [animation addSpriteFrame:frame2];
+//        //        
+//        //        [animation addSpriteFrame:frame3];
+//
+//
+//        
+//        //[self runAction:self.animate];
+//
+//        
+////        CCAnimate * animate = [CCAnimate actionWithAnimation:animation];
+//
+//
+//    }
+}
 
 
-        
-        //[self runAction:self.animate];
-
-        
-//        CCAnimate * animate = [CCAnimate actionWithAnimation:animation];
-
-
-    }
+- (void) addSchedule
+{
+    [self unscheduleAllSelectors];
+    [self schedule: @selector(rotateTile) interval:0.5f];
 }
 
 -(void) update:(ccTime)delta {
-    CGPoint pos = self.position;
-    pos.x += 300;
-    self.position = pos;
+    
 }
 
 

@@ -10,8 +10,16 @@
 #import "cocos2d.h"
 
 @interface MainLayer : CCLayer {
-//         APIConnection *apiConnection;   
+    int winCount;
+    int loseCount;
+    int drawCount;
+    int point;
 }
+
+@property(nonatomic, readwrite) int winCount;
+@property(nonatomic, readwrite) int loseCount;
+@property(nonatomic, readwrite) int drawCount;
+@property(nonatomic, readwrite) int point;
 
 +(CCScene *) scene;
 

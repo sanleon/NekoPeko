@@ -10,18 +10,29 @@
 
 #import "AppDelegate.h"
 #import "IntroLayer.h"
+#import "MainLayer.h"
+#import "GameResultLayer.h"
+#import "ScoreAddUpLayer.h"
+#import "RegisterLayer.h"
 
 @implementation AppController
+
+BOOL isConnecting;
 
 @synthesize window=window_, navController=navController_, director=director_;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+            NSLog(@"%@",@"didFinishLaunchingWithOptions");
+    apiConnection = [APIConnection sharedAPIConnection];
+    [apiConnection setActionType:CONNECT_TO_SERVER];
+    isConnecting = YES;
+    [apiConnection connecToServer];
+    
 	// Create the main window
 	window_ = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    apiConnection = [APIConnection sharedAPIConnection];
-    [apiConnection connecToServer];
+
 	// Create an CCGLView with a RGB565 color buffer, and a depth buffer of 0-bits
 	CCGLView *glView = [CCGLView viewWithFrame:[window_ bounds]
 								   pixelFormat:kEAGLColorFormatRGB565	//kEAGLColorFormatRGBA8
@@ -36,7 +47,7 @@
 	director_.wantsFullScreenLayout = YES;
 
 	// Display FSP and SPF
-	[director_ setDisplayStats:YES];
+	[director_ setDisplayStats:NO];
 
 	// set FPS at 60
 	[director_ setAnimationInterval:1.0/60];
@@ -73,7 +84,7 @@
 	// Assume that PVR images have premultiplied alpha
 	[CCTexture2D PVRImagesHavePremultipliedAlpha:YES];
 
-	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
+//	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 	[director_ pushScene: [IntroLayer scene]]; 
 
 	
@@ -102,6 +113,7 @@
 // getting a call, pause the game
 -(void) applicationWillResignActive:(UIApplication *)application
 {
+        NSLog(@"%@",@"applicationWillResignActive");
 	if( [navController_ visibleViewController] == director_ )
 		[director_ pause];
 }
@@ -109,25 +121,56 @@
 // call got rejected
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
-	if( [navController_ visibleViewController] == director_ )
-		[director_ resume];
+    NSLog(@"%@",@"applicationDidBecomeActive");
+    if( [navController_ visibleViewController] == director_ ) {
+        NSLog(@"%@",@"resume");
+
+        [director_ resume];
+    }
+    if (!isConnecting) {
+        apiConnection = [APIConnection sharedAPIConnection];
+        apiConnection.delegate = self;
+        [apiConnection setActionType:CONNECT_TO_SERVER];
+        [apiConnection connecToServer];
+//        [self sendReLogin];
+
+        
+//        [director_ pushScene: [IntroLayer scene]];
+        
+
+    }
+    isConnecting = NO;
+//
 }
 
 -(void) applicationDidEnterBackground:(UIApplication*)application
 {
+    NSLog(@"%@",@"applicationDidEnterBackground");
+//    [apiConnection closeToServer];
+//    IntroLayer *introLayer = [IntroLayer node];
+//    [introLayer setIsLogined:NO];
 	if( [navController_ visibleViewController] == director_ )
 		[director_ stopAnimation];
 }
 
 -(void) applicationWillEnterForeground:(UIApplication*)application
 {
+
+    NSLog(@"%@",@"applicationWillEnterForeground");
 	if( [navController_ visibleViewController] == director_ )
 		[director_ startAnimation];
+    
+//    [director_ pushScene: [IntroLayer scene]];
 }
 
 // application will be killed
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+//    IntroLayer *introLayer = [IntroLayer node];
+//    [introLayer setIsLogined:NO];
+//    apiConnection = [APIConnection sharedAPIConnection];
+//    [apiConnection closeToServer];
+    
 	CC_DIRECTOR_END();
 }
 
@@ -147,6 +190,9 @@
 {
 
         NSLog(@"Error Message : %@", message);
+//    apiConnection = [APIConnection sharedAPIConnection];
+//    [apiConnection setActionType:CONNECT_TO_SERVER];
+//    [apiConnection connecToServer];
         // TODO
         // GameLayerを表示します
         
@@ -163,12 +209,75 @@
     }
     
     if (result) {
+
+
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *actionType = [userDefaults valueForKey:ACTION_TYPE];
+        if ([actionType isEqualToString:ACTION_MAIN]) {
+            if( [navController_ visibleViewController] == director_ )
+                [director_ resume];
+        } else if ([actionType isEqualToString:ACTION_GAME] || [actionType isEqualToString:ACTION_SCORE_ADD_UP]) {
+            if( [navController_ visibleViewController] == director_ )
+                [director_ resume];
+            GameResultLayer *gameResultLayer = [GameResultLayer node];
+            [gameResultLayer setGameResult:2];
+            [gameResultLayer setIsForceGameEnd:YES];
+            CCScene *gameResultScene = [CCScene node];
+            [gameResultScene addChild:gameResultLayer];
+            [director_ pushScene: gameResultScene];
+
+
+//            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:gameResultScene withColor:ccWHITE]];
+            
+        } else if ([actionType isEqualToString:ACTION_INTRO]) {
+            if( [navController_ visibleViewController] == director_ )
+                [director_ resume];
+        } else if ([actionType isEqualToString:ACTION_REGISTER]) {
+            if( [navController_ visibleViewController] == director_ )
+                [director_ resume];
+        } else if ([actionType isEqualToString:ACTION_FIND_PLAYER]) {
+            if( [navController_ visibleViewController] == director_ ) {
+                [director_ resume];
+            }
+        }else {
+            if( [navController_ visibleViewController] == director_ )
+                [director_ resume];
+        }
+
         // GameLayerを表示します
         //        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
         //        [someField setHidden:YES];
     }
     //    [apiConnection closeToServer];
     
+}
+
+- (void) receivedMessageFromConnectToServer:(NSDictionary *)messageDic
+{
+    // TODO
+    BOOL opend = [messageDic valueForKey:@"open"];
+    if (opend) {
+        [self sendReLogin];
+    }
+    // and add the scene to the stack. The director will run it when it automatically when the view is displayed.
+//	[director_ pushScene: [IntroLayer scene]];
+}
+
+- (void)sendReLogin
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
+    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
+        apiConnection.delegate = self;
+    
+    [apiConnection setActionType:LOGIN_TO_SERVER];
+    // TODO 保存！
+    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginedUserId,loginedUUID]];
+    
+    
+    [apiConnection sendMessage:@"{\"record\":\"\"}"];
+
 }
 
 

@@ -13,9 +13,12 @@
 #import "cocos2d.h"
 #import "APIConnection.h"
 
+#define waitTimeForFindPlayer 10
+
 @interface FindPlayerLayer : CCLayer <APIConnectionDelegate> {
      APIConnection *apiConnection;
     BOOL isFindEnmey;
+    float currentWaitTime;
 }
 
 +(CCScene *) scene;

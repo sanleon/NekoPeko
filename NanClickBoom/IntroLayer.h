@@ -9,13 +9,23 @@
 
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
+#import "APIConnection.h"
 
 // HelloWorldLayer
-@interface IntroLayer : CCLayer
+@interface IntroLayer : CCLayer <APIConnectionDelegate>
 {
+    APIConnection *apiConnection;
+    NSDictionary *receiveMessageDic;
+    BOOL isLogined;
+    BOOL isLogging;
 }
 
+
+@property(nonatomic, readwrite) BOOL isLogined;
+@property(nonatomic, readwrite) BOOL isLogging;
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
+
+
 
 @end

@@ -48,6 +48,7 @@
     // create and initialize a Label
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"Login画面" fontName:@"Marker Felt" fontSize:24];
     someField = [[UITextField alloc] initWithFrame:CGRectMake(0, 200, 150, 30)];
+    [someField setPlaceholder:@"ログインIDを入力してください"];
     someField.delegate = self;
     [someField setBackgroundColor:[UIColor whiteColor]];
     
@@ -55,8 +56,7 @@
     // TODO 位置修正
     // Set any attributes to your field
 //    CCLabelTTF * someLabel = [CCLabelTTF labelWithString:@"Login" dimensions:CGSizeMake(100, 30) hAlignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:12];
-    
-    //        CCTextField * tf = [CCTextField textFieldWithFieldSize:CGSizeMake(200, 20) fontName:@"Marker Felt" andFontSize:12];
+
     // ask director for the window size
     CGSize size = [[CCDirector sharedDirector] winSize];
     
@@ -157,6 +157,10 @@
     }
 
     [someField setHidden:NO];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    // TODO
+    [userDefaults setObject:nil forKey:@"NumClickUserID"];
+    [userDefaults synchronize];
 }
 
 - (void) receivedMessageFromLoginToServer:(NSDictionary *)messageDic
@@ -178,8 +182,21 @@
 
 - (void) sendMessageByAPI
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    // TODO 
+    [userDefaults setObject:someField.text forKey:@"NumClickUserID"];
+    [userDefaults synchronize];
     [apiConnection setActionType:LOGIN_TO_SERVER];
-    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\"}}", someField.text]];
+    // TODO 保存！
+    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", someField.text, [self getUUID]]];
+}
+
+- (NSString*) getUUID {
+    CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
+    //get the string representation of the UUID
+    NSString *uuidString = (NSString*)CFUUIDCreateString(nil, uuidObj);
+    CFRelease(uuidObj);
+    return [uuidString autorelease];
 }
 
 

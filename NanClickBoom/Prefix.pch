@@ -12,3 +12,13 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #endif
+
+#define gameCount 3
+#define ACTION_TYPE @"ActionType"
+#define ACTION_FIND_PLAYER @"ActionFindPlayer"
+#define ACTION_INTRO @"ActionIntro"
+#define ACTION_REGISTER @"ActionRegister"
+#define ACTION_MAIN @"ActionMain"
+#define ACTION_GAME @"ActionGame"
+#define ACTION_SCORE_ADD_UP @"ActionScoreAddUp"
+#define ACTION_GAME_RESULT @"ActionGameResult"
