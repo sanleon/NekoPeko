@@ -89,16 +89,16 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
     if (messageDic != nil) {
         
 
-        if ([messageDic objectForKey:RESULT_ERROR] != nil) {
-            NSString *message = [messageDic objectForKey:RESULT_ERROR];
-            if ([message isEqualToString:UNEXPECTED_ERROR]) {
-                [self closeToServer];
-                [self connecToServer];
-                
-            }
-            
-        }
-//        
+//        if ([messageDic objectForKey:RESULT_ERROR] != nil) {
+//            NSString *message = [messageDic objectForKey:RESULT_ERROR];
+//            if ([message isEqualToString:UNEXPECTED_ERROR]) {
+//                [self closeToServer];
+//                [self connecToServer];
+//                
+//            }
+//            
+//        }
+//
 //        BOOL opend = [messageDic valueForKey:@"open"];
 //        if (opend) {
 //            [self sendReLogin];

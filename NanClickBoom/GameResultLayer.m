@@ -89,14 +89,45 @@
     loseLabelImage.position = ccp(289, 356);
     [self addChild:loseLabelImage];
     
+    CCLabelTTF *drawCountlabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", drawCount] fontName:@"AmericanTypewriter-Bold" fontSize:60];
+    drawCountlabel.position =  ccp(160 ,321);
+    drawCountlabel.color = ccc3(119, 87, 116);
+    drawCountlabel.anchorPoint = ccp(0.5, 0.5);
+    drawCountlabel.dimensions = CGSizeMake(100, 0);
+    [self addChild:drawCountlabel];
+    
+    //    CCLabelTTF *loselabel = [CCLabelTTF labelWithString:@"Lose" fontName:@"AmericanTypewriter-Bold" fontSize:24];
+    //    loselabel.position =  ccp(250 ,300);
+    //    loselabel.color = ccc3(0, 0, 0);
+    //    [self addChild:loselabel z:1];
+    
+    CCSprite *drawLabelImage = [CCSprite spriteWithFile:@"result_me_title_draw.png"];
+    drawLabelImage.position = ccp(160, 356);
+    [self addChild:drawLabelImage];
     
     CCSprite *resultImage;
     if (gameResult == 1) {
         resultImage = [CCSprite spriteWithFile:@"result_me_bigtitle_win.png"];
+        gameResultAnimation = [GameResultAnimation spriteWithFile:@"result_me_result_win_01.png"];
+        gameResultAnimation.grAnimation = [CCAnimation animation];
+        for (int i = 1; i <= 3; i++) {
+            [gameResultAnimation.grAnimation addSpriteFrameWithFilename:[NSString stringWithFormat:@"result_me_result_win_%d.png", i]];
+        }
     } else if(gameResult == 2) {
         resultImage = [CCSprite spriteWithFile:@"result_me_bigtitle_lose.png"];
+        gameResultAnimation = [GameResultAnimation spriteWithFile:@"result_me_result_lose_1.png"];
+        gameResultAnimation.grAnimation = [CCAnimation animation];
+        for (int i = 1; i <= 2; i++) {
+            [gameResultAnimation.grAnimation addSpriteFrameWithFilename:[NSString stringWithFormat:@"result_me_result_lose_%d.png", i]];
+        }
     } else {
+        resultImage = [CCSprite spriteWithFile:@"result_me_bigtitle_draw.png"];
         // TODO draw
+        gameResultAnimation = [GameResultAnimation spriteWithFile:@"result_me_result_draw_1.png"];
+        gameResultAnimation.grAnimation = [CCAnimation animation];
+        for (int i = 1; i <= 4; i++) {
+            [gameResultAnimation.grAnimation addSpriteFrameWithFilename:[NSString stringWithFormat:@"result_me_result_draw_%d.png", i]];
+        }
     }
     resultImage.position = ccp(160, 409);
     [self addChild:resultImage z:1];
@@ -106,8 +137,19 @@
     CCSprite *borderImage = [CCSprite spriteWithFile:@"result_border.png"];
     borderImage.position = ccp(160, 255);
     [self addChild:borderImage];
-    
 
+    gameResultAnimation.grAnimation.delayPerUnit = 0.5;
+    
+    gameResultAnimation.grAnimation.loops = -1;
+    
+    gameResultAnimation.grAnimate = [CCAnimate actionWithAnimation:gameResultAnimation.grAnimation];
+    
+    gameResultAnimation.position = ccp(size.width/2, 81);
+    
+    [self addChild:gameResultAnimation];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GameResultStartAnimation" object:self];
+    
 }
 
 - (void) onEnter
@@ -134,6 +176,7 @@
     }
     
     CCMenuItemImage *item = [CCMenuItemImage itemWithNormalImage:@"signup_btn_ok.png" selectedImage:@"signup_btn_ok.png" block:^(id sender){
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"GameResultEndAnimation" object:self];
         [self performSelectorOnMainThread:@selector(moveMainPage) withObject:nil waitUntilDone:YES];
         
         

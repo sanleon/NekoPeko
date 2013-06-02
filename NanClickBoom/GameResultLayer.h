@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "APIConnection.h"
+#import "GameResultAnimation.h"
 
 @interface GameResultLayer : CCLayer <APIConnectionDelegate>{
     int winCount;
@@ -17,6 +18,7 @@
     int gameResult;
     BOOL isForceGameEnd;
     APIConnection *apiConnection;
+    GameResultAnimation *gameResultAnimation;
 }
 
 @property(nonatomic, readwrite) int winCount;
