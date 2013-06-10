@@ -9,6 +9,7 @@
 #import "RegisterLayer.h"
 #import "MainLayer.h"
 #import "ModalAlert.h"
+#import "AccountManager.h"
 
 
 @implementation RegisterLayer
@@ -219,6 +220,9 @@
     
     if (result) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *accId = [userDefaults objectForKey:@"NumClickUserID"];
+        NSString *uuid = [userDefaults objectForKey:@"NumClickUUID"];
+        [AccountManager addAccount:uuid accountId:accId];
 
 
         [userDefaults setObject:0 forKey:@"WinCount"];
@@ -246,6 +250,8 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *uuid = [self getUUID];
+    
+    
     // TODO
     [userDefaults setObject:someField.text forKey:@"NumClickUserID"];
     // TODO

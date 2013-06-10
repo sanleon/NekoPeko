@@ -314,6 +314,10 @@
 		11ED9848175AE7F900CDF6D9 /* result_me_result_win_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11ED9836175AE7F900CDF6D9 /* result_me_result_win_3@2x.png */; };
 		11ED984B175AEEBD00CDF6D9 /* GameResultAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 11ED9849175AEEBC00CDF6D9 /* GameResultAnimation.h */; };
 		11ED984C175AEEBD00CDF6D9 /* GameResultAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 11ED984A175AEEBC00CDF6D9 /* GameResultAnimation.m */; };
+		11ED984F176624AF00CDF6D9 /* AccountManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 11ED984D176624AE00CDF6D9 /* AccountManager.h */; };
+		11ED9850176624AF00CDF6D9 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 11ED984E176624AF00CDF6D9 /* AccountManager.m */; };
+		11ED98531766310300CDF6D9 /* result_me_draw.png in Resources */ = {isa = PBXBuildFile; fileRef = 11ED98511766310300CDF6D9 /* result_me_draw.png */; };
+		11ED98541766310300CDF6D9 /* result_me_draw@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 11ED98521766310300CDF6D9 /* result_me_draw@2x.png */; };
 		11FFF33216F37F100029B01B /* GameResultLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FFF33016F37F0F0029B01B /* GameResultLayer.h */; };
 		11FFF33316F37F100029B01B /* GameResultLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFF33116F37F0F0029B01B /* GameResultLayer.m */; };
 		70194BA016F73B1700D2AE79 /* result_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 70194B8216F73B1700D2AE79 /* result_border.png */; };
@@ -943,6 +947,10 @@
 		11ED9836175AE7F900CDF6D9 /* result_me_result_win_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "result_me_result_win_3@2x.png"; sourceTree = "<group>"; };
 		11ED9849175AEEBC00CDF6D9 /* GameResultAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResultAnimation.h; sourceTree = "<group>"; };
 		11ED984A175AEEBC00CDF6D9 /* GameResultAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameResultAnimation.m; sourceTree = "<group>"; };
+		11ED984D176624AE00CDF6D9 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
+		11ED984E176624AF00CDF6D9 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
+		11ED98511766310300CDF6D9 /* result_me_draw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = result_me_draw.png; sourceTree = "<group>"; };
+		11ED98521766310300CDF6D9 /* result_me_draw@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "result_me_draw@2x.png"; sourceTree = "<group>"; };
 		11FFF33016F37F0F0029B01B /* GameResultLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResultLayer.h; sourceTree = "<group>"; };
 		11FFF33116F37F0F0029B01B /* GameResultLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameResultLayer.m; sourceTree = "<group>"; };
 		70194B8216F73B1700D2AE79 /* result_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = result_border.png; path = result/result_border.png; sourceTree = "<group>"; };
@@ -1389,6 +1397,8 @@
 		118C011416E19C180098388D /* images */ = {
 			isa = PBXGroup;
 			children = (
+				11ED98511766310300CDF6D9 /* result_me_draw.png */,
+				11ED98521766310300CDF6D9 /* result_me_draw@2x.png */,
 				7097302216F88B19006DBEB5 /* main_first_my_cha.png */,
 				7097302316F88B19006DBEB5 /* main_first_my_cha@2x.png */,
 				7097301E16F88A34006DBEB5 /* main_first_my_bottom_cha.png */,
@@ -1593,6 +1603,8 @@
 				70972FCD16F86BE6006DBEB5 /* AttackAnimation.m */,
 				11ED9849175AEEBC00CDF6D9 /* GameResultAnimation.h */,
 				11ED984A175AEEBC00CDF6D9 /* GameResultAnimation.m */,
+				11ED984D176624AE00CDF6D9 /* AccountManager.h */,
+				11ED984E176624AF00CDF6D9 /* AccountManager.m */,
 			);
 			path = NanClickBoom;
 			sourceTree = "<group>";
@@ -1944,6 +1956,7 @@
 				11FFF33216F37F100029B01B /* GameResultLayer.h in Headers */,
 				70972FCE16F86BE7006DBEB5 /* AttackAnimation.h in Headers */,
 				11ED984B175AEEBD00CDF6D9 /* GameResultAnimation.h in Headers */,
+				11ED984F176624AF00CDF6D9 /* AccountManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2334,6 +2347,8 @@
 				11ED9846175AE7F900CDF6D9 /* result_me_result_win_2@2x.png in Resources */,
 				11ED9847175AE7F900CDF6D9 /* result_me_result_win_3.png in Resources */,
 				11ED9848175AE7F900CDF6D9 /* result_me_result_win_3@2x.png in Resources */,
+				11ED98531766310300CDF6D9 /* result_me_draw.png in Resources */,
+				11ED98541766310300CDF6D9 /* result_me_draw@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2468,6 +2483,7 @@
 				11FFF33316F37F100029B01B /* GameResultLayer.m in Sources */,
 				70972FCF16F86BE7006DBEB5 /* AttackAnimation.m in Sources */,
 				11ED984C175AEEBD00CDF6D9 /* GameResultAnimation.m in Sources */,
+				11ED9850176624AF00CDF6D9 /* AccountManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

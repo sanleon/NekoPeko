@@ -12,6 +12,7 @@
 #import "LoginLayer.h"
 #import "RegisterLayer.h"
 #import "MainLayer.h"
+#import "AccountManager.h"
 
 #pragma mark - IntroLayer
 
@@ -196,16 +197,25 @@
     if (messageDic != nil) {
         //NSLog(@"IntroLayer ReceivedMessageFromConnectToServer %@", messageDic);
 
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            // TODO
-            NSString *loginId = [userDefaults objectForKey:@"NumClickUserID"];
-            NSString *uuid = [userDefaults objectForKey:@"NumClickUUID"];
-            
+        NSMutableArray *accountArray = [AccountManager allAccount];
+        NSString *loginId = nil;
+        NSString *uuid = nil;
+        for (NSDictionary *accountDic in accountArray) {
+            loginId = [accountDic objectForKey:@"acct"];
+            uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
+        }
+//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//            // TODO
+//            NSString *loginId = [userDefaults objectForKey:@"NumClickUserID"];
+//            NSString *uuid = [userDefaults objectForKey:@"NumClickUUID"];
+        
             if (loginId != nil && uuid != nil) {
+                apiConnection.delegate = self;
                 [apiConnection setActionType:LOGIN_TO_SERVER];
                 // TODO 保存！
 //                isLogging = YES;
                 [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginId, uuid]];
+//                                [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
             } else {
                 
                 [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[RegisterLayer scene] withColor:ccWHITE]];
@@ -219,15 +229,18 @@
 
 - (void)sendReLogin
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
-    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
+    NSMutableArray *accountArray = [AccountManager allAccount];
+    NSString *loginId = nil;
+    NSString *uuid = nil;
+    for (NSDictionary *accountDic in accountArray) {
+        loginId = [accountDic objectForKey:@"acct"];
+        uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
+    }
     
     
     [apiConnection setActionType:LOGIN_TO_SERVER];
     // TODO 保存！
-    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginedUserId,loginedUUID]];
+    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginId,uuid]];
     
     
     [apiConnection sendMessage:@"{\"record\":\"\"}"];

@@ -14,6 +14,7 @@
 #import "GameResultLayer.h"
 #import "ScoreAddUpLayer.h"
 #import "RegisterLayer.h"
+#import "AccountManager.h"
 
 @implementation AppController
 
@@ -23,6 +24,7 @@ BOOL isConnecting;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    [AccountManager deleteAllAccount];
             NSLog(@"%@",@"didFinishLaunchingWithOptions");
     apiConnection = [APIConnection sharedAPIConnection];
     [apiConnection setActionType:CONNECT_TO_SERVER];
@@ -126,6 +128,12 @@ BOOL isConnecting;
         NSLog(@"%@",@"resume");
 
         [director_ resume];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString* actionType = [userDefaults objectForKey:ACTION_TYPE];
+        
+        if ([actionType isEqualToString:ACTION_BACKGROUND]) {
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
+        }
     }
     if (!isConnecting) {
         apiConnection = [APIConnection sharedAPIConnection];
@@ -149,6 +157,9 @@ BOOL isConnecting;
 //    [apiConnection closeToServer];
 //    IntroLayer *introLayer = [IntroLayer node];
 //    [introLayer setIsLogined:NO];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:ACTION_BACKGROUND forKey:ACTION_TYPE];
+    [apiConnection closeToServer];
 	if( [navController_ visibleViewController] == director_ )
 		[director_ stopAnimation];
 }
@@ -265,15 +276,22 @@ BOOL isConnecting;
 
 - (void)sendReLogin
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
-    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
+//    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
+    NSMutableArray *accountArray = [AccountManager allAccount];
+    NSString *loginId = nil;
+    NSString *uuid = nil;
+    for (NSDictionary *accountDic in accountArray) {
+        loginId = [accountDic objectForKey:@"acct"];
+        uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
+    }
         apiConnection.delegate = self;
     
     [apiConnection setActionType:LOGIN_TO_SERVER];
     // TODO 保存！
-    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginedUserId,loginedUUID]];
+    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginId,uuid]];
     
     
     [apiConnection sendMessage:@"{\"record\":\"\"}"];

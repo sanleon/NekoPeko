@@ -10,6 +10,7 @@
 #import "GameLayer.h"
 #import "ModalAlert.h"
 #import "MainLayer.h"
+#import "AccountManager.h"
 
 
 @implementation FindPlayerLayer
@@ -127,15 +128,22 @@
 
 - (void)sendReLogin
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
-    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
+//    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
+    NSMutableArray *accountArray = [AccountManager allAccount];
+    NSString *loginId = nil;
+    NSString *uuid = nil;
+    for (NSDictionary *accountDic in accountArray) {
+        loginId = [accountDic objectForKey:@"acct"];
+        uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
+    }
     
     
     [apiConnection setActionType:RELOGIN_TO_SERVER];
     // TODO 保存！
-    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginedUserId,loginedUUID]];
+    [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginId,uuid]];
     
 }
 

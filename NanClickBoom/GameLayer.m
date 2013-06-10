@@ -78,6 +78,7 @@ enum {
 - (void)startGamePlay
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:ACTION_GAME forKey:ACTION_TYPE];
     // TODO
     // My ID
     myUserId= [userDefaults objectForKey:@"NumClickUserID"];
@@ -363,10 +364,21 @@ enum {
 - (void) onEnter
 {
     [super onEnter];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString* actionType = [userDefaults objectForKey:ACTION_TYPE];
+//    if ([actionType isEqualToString:ACTION_BACKGROUND]) {
+//        [userDefaults setObject:ACTION_MAIN forKey:ACTION_TYPE];
+//        [ModalAlert Tell:@"前回、異常終了の為、メイン画面に戻ります。" onLayer:self okBlock:^{
+//            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
+//        }];
+//        // gameOverの呼び出し
+//        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
+//        return;
+//    }
     
     
     [self setUpMainImage];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
     [userDefaults setObject:ACTION_GAME forKey:ACTION_TYPE];
     [userDefaults synchronize];
     
@@ -736,7 +748,16 @@ enum {
     NSLog(@"_currentEnemyHp :%f", _currentEnemyHp);
     NSLog(@"scoreLayer.currentMyHp :%f", scoreLayer.currnetMyHp);
     NSLog(@"scoreLayer.currentEnemyHp :%f", scoreLayer.currentEnemyHp);
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scoreScene withColor:ccWHITE]];
+
+    NSString* actionType = [userDefaults objectForKey:ACTION_TYPE];
+    
+    if ([actionType isEqualToString:ACTION_BACKGROUND]) {
+        [userDefaults setObject:ACTION_MAIN forKey:ACTION_TYPE];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
+        
+    } else {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:scoreScene withColor:ccWHITE]];
+    }
     
     //    CCMenuItemFont *item = [CCMenuItemFont itemWithString:@"Main画面へ" block:^(id sender){
     //

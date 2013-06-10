@@ -9,6 +9,7 @@
 #import "MainLayer.h"
 #import "GameLayer.h"
 #import "FindPlayerLayer.h"
+#import "AccountManager.h"
 
 @implementation MainLayer
 
@@ -46,11 +47,16 @@
     CCSprite *characterImage =[CCSprite spriteWithFile:@"main_first_my_cha.png"];
     characterImage.position = ccp(39, 441);
     [self addChild:characterImage];
+    
+    NSMutableArray *accountArray = [AccountManager allAccount];
+    NSString *loginId = nil;
+    NSString *uuid = nil;
+    for (NSDictionary *accountDic in accountArray) {
+        loginId = [accountDic objectForKey:@"acct"];
+        uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
+    }
 
-    // TODO
-    // My ID
-    NSString * myId = [userDefaults objectForKey:@"NumClickUserID"];
-    CCLabelTTF *characterLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@ちゃん", myId]  fontName:@"AmericanTypewriter-Bold" fontSize:15];
+    CCLabelTTF *characterLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@ちゃん", loginId]  fontName:@"AmericanTypewriter-Bold" fontSize:15];
     characterLabel.position = ccp(17.5, 420.0);
     characterLabel.color = ccc3(0,0,0);
     characterLabel.anchorPoint = ccp(0.0, 1.0);

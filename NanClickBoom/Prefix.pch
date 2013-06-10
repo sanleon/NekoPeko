@@ -22,3 +22,4 @@
 #define ACTION_GAME @"ActionGame"
 #define ACTION_SCORE_ADD_UP @"ActionScoreAddUp"
 #define ACTION_GAME_RESULT @"ActionGameResult"
+#define ACTION_BACKGROUND @"Background"

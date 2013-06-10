@@ -8,6 +8,7 @@
 
 #import "APIConnection.h"
 #import "NSString+SBJSON.h"
+#import "AccountManager.h"
 
 @implementation APIConnection
 
@@ -234,16 +235,25 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 
 - (void)sendReLogin
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *accountArray = [AccountManager allAccount];
+    NSString *loginId = nil;
+    NSString *uuid = nil;
+    for (NSDictionary *accountDic in accountArray) {
+        loginId = [accountDic objectForKey:@"acct"];
+        uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
+    }
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
+//    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
     
-    NSString *loginedUserId = [userDefaults objectForKey:@"NumClickUserID"];
-    NSString *loginedUUID =     [userDefaults objectForKey:@"NumClickUUID"];
     
-    if (loginedUserId && loginedUUID) {
+    
+    if (loginId && uuid) {
         
         [self setActionType:LOGIN_TO_SERVER];
         // TODO 保存！
-        [self sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginedUserId,loginedUUID]];
+        [self sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginId,uuid]];
         
         
         [self sendMessage:@"{\"record\":\"\"}"];
