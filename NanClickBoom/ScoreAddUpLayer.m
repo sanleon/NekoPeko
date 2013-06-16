@@ -501,9 +501,14 @@
             NSNumber *tempPoint = [myHpDic valueForKey:@"point"];
             NSNumber *tempEnemyPoint = [enemyHpDic valueForKey:@"point"];
             
+            NSNumber *tempMyCombo = [myHpDic valueForKey:@"combo"];            
+            NSNumber *tempMyCount = [myHpDic valueForKey:@"attack"];
+            
             NSNumber *tempEnemyCombo = [enemyHpDic valueForKey:@"combo"];
             NSNumber *tempEnemyCount = [enemyHpDic valueForKey:@"attack"];
             point = [tempPoint intValue];
+            combo = [tempMyCombo intValue];
+            count = [tempMyCount intValue];
             enemyPoint = [tempEnemyPoint intValue];
             enemyCombo = [tempEnemyCombo intValue];
             enemyCount = [tempEnemyCount intValue];

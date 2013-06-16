@@ -62,15 +62,26 @@
     apiConnection.delegate = self;
 	// ask director for the window size
 	CGSize size = [[CCDirector sharedDirector] winSize];
-
 	CCSprite *background;
-	
-	if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
-		background = [CCSprite spriteWithFile:@"Default.png"];
-		background.rotation = 360;
-	} else {
-		background = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
-	}
+    
+    background = [CCSprite spriteWithFile:@"Default.png"];
+    background.rotation = 360;
+
+//    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//    if (screenBounds.size.height == 568) {
+//        background = [CCSprite spriteWithFile:@"Default-568h@2x.png"];
+//        background.rotation = 360;
+//
+//    } else {
+//        background = [CCSprite spriteWithFile:@"Default.png"];
+//        background.rotation = 360;
+//    }
+//	if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
+//		background = [CCSprite spriteWithFile:@"Default.png"];
+//		background.rotation = 360;
+//	} else {
+//		background = [CCSprite spriteWithFile:@"Default-Landscape~ipad.png"];
+//	}
 	background.position = ccp(size.width/2, size.height/2);
 
 	// add the label as a child to this Layer
@@ -88,13 +99,15 @@
 }
 
 -(void) makeTransition:(ccTime)dt
-{
+{   
     NSLog(@"IntroLayer MakeTransaction");
-    if ([apiConnection isConnecting]) {
-        if (![apiConnection isLogined]) {
+//    if ([apiConnection isConnecting]) {
+        if (![apiConnection isConnected]) {
             apiConnection.delegate = self;
-            [apiConnection sendReLogin];
-        }
+            [apiConnection setActionType:CONNECT_TO_SERVER];
+            [apiConnection connecToServer];
+            
+//        }
 //        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 //        // TODO
 //        NSString *loginId = [userDefaults objectForKey:@"NumClickUserID"];
@@ -149,23 +162,15 @@
     BOOL result = NO;
     BOOL openResult = NO;
     if (receiveMessageDic != nil) {
-//        NSNumber *openValue = [receiveMessageDic valueForKey:@"open"];
-//        if ([openValue intValue] == 1) {
-//            openResult = YES;
-//
-//        } else {
-//            openResult = NO;
-//        }
-//        if (openResult) {
-//            [self sendReLogin];
-//            return;
-//        }
         
         NSNumber *loginResult = [receiveMessageDic valueForKey:@"login"];
         if ([loginResult intValue] == 1) {
             result = YES;
+            [apiConnection setIsLogined:YES];
         } else {
             result = NO;
+            
+            [apiConnection setIsLogined:NO];
         }
         
         
@@ -186,8 +191,11 @@
         // GameLayerを表示します
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
     } else {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[RegisterLayer scene] withColor:ccWHITE]];
+        [self sendReLogin];
     }
+//    else {
+//        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[RegisterLayer scene] withColor:ccWHITE]];
+//    }
 
     
 }
@@ -196,7 +204,10 @@
 {
     if (messageDic != nil) {
         //NSLog(@"IntroLayer ReceivedMessageFromConnectToServer %@", messageDic);
-
+        NSNumber *openResult = [messageDic objectForKey:@"open"] ;
+        if ([openResult intValue] == 1) {
+            [apiConnection setIsConnected:YES];
+        }
         NSMutableArray *accountArray = [AccountManager allAccount];
         NSString *loginId = nil;
         NSString *uuid = nil;
@@ -204,23 +215,14 @@
             loginId = [accountDic objectForKey:@"acct"];
             uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
         }
-//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//            // TODO
-//            NSString *loginId = [userDefaults objectForKey:@"NumClickUserID"];
-//            NSString *uuid = [userDefaults objectForKey:@"NumClickUUID"];
         
-            if (loginId != nil && uuid != nil) {
-                apiConnection.delegate = self;
-                [apiConnection setActionType:LOGIN_TO_SERVER];
-                // TODO 保存！
-//                isLogging = YES;
-                [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginId, uuid]];
-//                                [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
-            } else {
-                
-                [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[RegisterLayer scene] withColor:ccWHITE]];
-            }
-
+        if (loginId != nil && uuid != nil) {
+            [self sendReLogin];
+        } else {
+            
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[RegisterLayer scene] withColor:ccWHITE]];
+        }
+        
     }
 
 
@@ -243,8 +245,11 @@
     [apiConnection sendMessage:[NSString stringWithFormat:@"{\"login\":{\"id\":\"%@\", \"uid\":\"%@\"}}", loginId,uuid]];
     
     
-    [apiConnection sendMessage:@"{\"record\":\"\"}"];
-    
+}
+
+- (void) receivedMessageFromApplyGame:(NSDictionary *)messageDic
+{
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
 }
 
 - (void) sendMessageByAPI

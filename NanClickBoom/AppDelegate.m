@@ -132,22 +132,21 @@ BOOL isConnecting;
         NSString* actionType = [userDefaults objectForKey:ACTION_TYPE];
         
         if ([actionType isEqualToString:ACTION_BACKGROUND]) {
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[IntroLayer scene] withColor:ccWHITE]];
         }
     }
-    if (!isConnecting) {
-        apiConnection = [APIConnection sharedAPIConnection];
-        apiConnection.delegate = self;
-        [apiConnection setActionType:CONNECT_TO_SERVER];
-        [apiConnection connecToServer];
-//        [self sendReLogin];
-
-        
-//        [director_ pushScene: [IntroLayer scene]];
-        
-
-    }
-    isConnecting = NO;
+//    if (!isConnecting) {
+//        apiConnection = [APIConnection sharedAPIConnection];
+//        [apiConnection setActionType:CONNECT_TO_SERVER];
+//        [apiConnection connecToServer];
+////        [self sendReLogin];
+//
+//        
+////        [director_ pushScene: [IntroLayer scene]];
+//        
+//
+//    }
+//    isConnecting = NO;
 //
 }
 
@@ -157,11 +156,15 @@ BOOL isConnecting;
 //    [apiConnection closeToServer];
 //    IntroLayer *introLayer = [IntroLayer node];
 //    [introLayer setIsLogined:NO];
+    [apiConnection setIsLogined:NO];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:ACTION_BACKGROUND forKey:ACTION_TYPE];
     [apiConnection closeToServer];
+    [apiConnection setIsConnected:NO];
 	if( [navController_ visibleViewController] == director_ )
 		[director_ stopAnimation];
+    
+//    [self applicationWillTerminate:application];
 }
 
 -(void) applicationWillEnterForeground:(UIApplication*)application
@@ -268,6 +271,7 @@ BOOL isConnecting;
     // TODO
     BOOL opend = [messageDic valueForKey:@"open"];
     if (opend) {
+        [apiConnection setIsConnected:YES];
         [self sendReLogin];
     }
     // and add the scene to the stack. The director will run it when it automatically when the view is displayed.

@@ -15,6 +15,7 @@
 @synthesize delegate = _delegate;
 @synthesize actionType = actionType;
 @synthesize isLogined;
+@synthesize isConnected;
 
 
 static NSString* WEBSOCKET_SERVER_ADDRESS = @"neko.tutatuta.tk";
@@ -46,7 +47,7 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 }
 
 - (void) sendMessage:(NSString*) message {
-    if ([socket readyState] != 0 ) {
+    if ([socket readyState] == 1 ) {
         [socket send:[NSString stringWithFormat:@"%@", message]];
         
     }
@@ -82,6 +83,8 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 - (void) closeToServer {
     //[socket closeWithCode:1000 reason:@"Close From Application"];
     [self sendMessage:@"{\"close\":\"\"}"];
+    [socket release];
+    socket = nil;
 }
 
 - (void) receiveMessage:(NSDictionary*) messageDic
@@ -198,6 +201,7 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 
 - (void) receivedMessageFromLogin:(NSDictionary *)messageDic
 {
+    
     BOOL result = NO;
     if (messageDic != nil) {
         NSNumber *loginResult = [messageDic valueForKey:@"login"];
@@ -213,6 +217,15 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
     }
     
     if (result) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *recordDic = [messageDic valueForKey:@"record"];
+        NSNumber *winCount = [recordDic valueForKey:@"win"];
+        NSNumber *loseCount = [recordDic valueForKey:@"lose"];
+        NSNumber *drawCount = [recordDic valueForKey:@"draw"];
+        [userDefaults setObject:winCount forKey:@"WinCount"];
+        [userDefaults setObject:loseCount forKey:@"LoseCount"];
+        [userDefaults setObject:drawCount forKey:@"DrawCount"];
+        [userDefaults synchronize];
         self.isLogined = YES;
        
     } else {

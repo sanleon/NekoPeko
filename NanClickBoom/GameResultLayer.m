@@ -138,7 +138,7 @@
     borderImage.position = ccp(160, 255);
     [self addChild:borderImage];
 
-    gameResultAnimation.grAnimation.delayPerUnit = 0.5;
+    gameResultAnimation.grAnimation.delayPerUnit = 0.2;
     
     gameResultAnimation.grAnimation.loops = -1;
     

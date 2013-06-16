@@ -99,6 +99,7 @@
 @property (nonatomic, assign) id <APIConnectionDelegate> delegate;
 @property (nonatomic, retain) NSString *actionType;
 @property (nonatomic, readwrite) BOOL isLogined;
+@property (nonatomic, readwrite) BOOL isConnected;
 
 + (APIConnection*) sharedAPIConnection;
 

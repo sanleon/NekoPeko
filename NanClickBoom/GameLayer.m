@@ -9,6 +9,7 @@
 #import "GameLayer.h"
 #import "MainLayer.h"
 #import "ModalAlert.h"
+#import "AccountManager.h"
 
 
 
@@ -79,10 +80,12 @@ enum {
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:ACTION_GAME forKey:ACTION_TYPE];
-    // TODO
-    // My ID
-    myUserId= [userDefaults objectForKey:@"NumClickUserID"];
-    
+    NSMutableArray *accountArray = [AccountManager allAccount];
+    NSString *uuid = nil;
+    for (NSDictionary *accountDic in accountArray) {
+        myUserId = [accountDic objectForKey:@"acct"];
+        uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
+    }
     enemyUserId = [userDefaults objectForKey:@"NumClickEnemyID"];
     
     
@@ -893,7 +896,7 @@ enum {
 //    label.color = ccc3(255, 255, 255);
 //    [self addChild:label];
     
-    CCLabelTTF *attackLabel = [CCLabelTTF labelWithString:@"attack" fontName:@"Marker Felt" fontSize:10];
+    CCLabelTTF *attackLabel = [CCLabelTTF labelWithString:@"attack count" fontName:@"Marker Felt" fontSize:10];
     attackLabel.position =  ccp(29, 400.5);
     attackLabel.color = ccc3(0, 0, 0);
     attackLabel.anchorPoint = ccp(0.5, 0.5);
@@ -1039,6 +1042,11 @@ enum {
     }
     
 
+}
+
+- (void) receivedMessageFromApplyGame:(NSDictionary *)messageDic
+{
+    
 }
 
 @end

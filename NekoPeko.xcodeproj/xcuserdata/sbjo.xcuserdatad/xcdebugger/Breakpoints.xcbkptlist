@@ -99,11 +99,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/MainLayer.m"
-         timestampString = "392576637.912535"
+         timestampString = "393056862.803533"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "134"
-         endingLineNumber = "134"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
          landmarkName = "-onEnter"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,16 +151,16 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "187"
-         endingLineNumber = "187"
+         startingLineNumber = "197"
+         endingLineNumber = "197"
          landmarkName = "-receivedMessageFromLoginToServer:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "176"
-         endingLineNumber = "176"
+         startingLineNumber = "186"
+         endingLineNumber = "186"
          landmarkName = "-receivedMessageFromLoginToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392573687.033668"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "199"
-         endingLineNumber = "199"
+         startingLineNumber = "209"
+         endingLineNumber = "209"
          landmarkName = "-receivedMessageFromConnectToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,11 +229,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
-         timestampString = "392572845.144299"
+         timestampString = "392964362.513112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "109"
-         endingLineNumber = "109"
+         startingLineNumber = "111"
+         endingLineNumber = "111"
          landmarkName = "-receiveMessage:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -320,11 +320,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "164"
-         endingLineNumber = "164"
+         startingLineNumber = "174"
+         endingLineNumber = "174"
          landmarkName = "-receivedMessageFromLoginToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -333,11 +333,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "149"
-         endingLineNumber = "149"
+         startingLineNumber = "159"
+         endingLineNumber = "159"
          landmarkName = "-receivedMessageFromLoginToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -346,11 +346,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "119"
-         endingLineNumber = "119"
+         startingLineNumber = "129"
+         endingLineNumber = "129"
          landmarkName = "-receivedErrorFromAction:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -433,15 +433,15 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "94"
-         endingLineNumber = "94"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
          landmarkName = "-makeTransition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -450,11 +450,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "96"
-         endingLineNumber = "96"
+         startingLineNumber = "105"
+         endingLineNumber = "105"
          landmarkName = "-makeTransition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -463,11 +463,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92"
+         startingLineNumber = "100"
+         endingLineNumber = "100"
          landmarkName = "-makeTransition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -476,11 +476,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
-         timestampString = "392572845.144299"
+         timestampString = "392964362.513112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "111"
-         endingLineNumber = "111"
+         startingLineNumber = "113"
+         endingLineNumber = "113"
          landmarkName = "-receiveMessage:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -489,24 +489,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
-         timestampString = "392572845.144299"
+         timestampString = "392964362.513112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "129"
-         endingLineNumber = "129"
+         startingLineNumber = "131"
+         endingLineNumber = "131"
          landmarkName = "-receiveMessage:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392572845.144299"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
+         startingLineNumber = "103"
+         endingLineNumber = "103"
          landmarkName = "-makeTransition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -689,8 +689,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "443"
          endingLineNumber = "443"
-         landmarkName = "-onEnterTransitionDidFinish"
-         landmarkType = "5">
+         landmarkName = "@implementation GameLayer"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -762,11 +762,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392573407.858445"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "93"
-         endingLineNumber = "93"
+         startingLineNumber = "101"
+         endingLineNumber = "101"
          landmarkName = "-makeTransition:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -775,11 +775,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392573591.893478"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "147"
-         endingLineNumber = "147"
+         startingLineNumber = "157"
+         endingLineNumber = "157"
          landmarkName = "-receivedMessageFromLoginToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -788,11 +788,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392573606.302551"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "197"
-         endingLineNumber = "197"
+         startingLineNumber = "207"
+         endingLineNumber = "207"
          landmarkName = "-receivedMessageFromConnectToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -801,11 +801,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392575693.865296"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "232"
-         endingLineNumber = "232"
+         startingLineNumber = "242"
+         endingLineNumber = "242"
          landmarkName = "-sendReLogin"
          landmarkType = "5">
       </FileBreakpoint>
@@ -827,12 +827,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
-         timestampString = "392573847.708629"
+         timestampString = "392964362.513112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "238"
-         endingLineNumber = "238"
-         landmarkName = "-sendReLogin"
+         startingLineNumber = "240"
+         endingLineNumber = "240"
+         landmarkName = "-receivedMessageFromReConnectToServer:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -853,11 +853,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392575693.865296"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "212"
-         endingLineNumber = "212"
+         startingLineNumber = "222"
+         endingLineNumber = "222"
          landmarkName = "-receivedMessageFromConnectToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -892,11 +892,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392574251.464029"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "200"
-         endingLineNumber = "200"
+         startingLineNumber = "210"
+         endingLineNumber = "210"
          landmarkName = "-receivedMessageFromConnectToServer:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -957,16 +957,16 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/IntroLayer.m"
-         timestampString = "392575693.865296"
+         timestampString = "393057047.720477"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "217"
-         endingLineNumber = "217"
-         landmarkName = "-receivedMessageFromConnectToServer:"
-         landmarkType = "5">
+         startingLineNumber = "227"
+         endingLineNumber = "227"
+         landmarkName = "@implementation IntroLayer"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
@@ -979,7 +979,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
@@ -996,11 +996,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
-         timestampString = "392575756.053406"
+         timestampString = "392964362.513112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "131"
-         endingLineNumber = "131"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
          landmarkName = "-receiveMessage:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1009,11 +1009,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
-         timestampString = "392575760.437566"
+         timestampString = "392964362.513112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "112"
-         endingLineNumber = "112"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "-receiveMessage:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1022,12 +1022,38 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "NanClickBoom/APIConnection.m"
-         timestampString = "392575808.93697"
+         timestampString = "392964362.513112"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "90"
-         endingLineNumber = "90"
+         startingLineNumber = "92"
+         endingLineNumber = "92"
          landmarkName = "-receiveMessage:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "NanClickBoom/GameResultLayer.m"
+         timestampString = "392966324.760859"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "168"
+         endingLineNumber = "168"
+         landmarkName = "-onEnter"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "NanClickBoom/GameResultLayer.m"
+         timestampString = "392966326.696738"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "167"
+         endingLineNumber = "167"
+         landmarkName = "-onEnter"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

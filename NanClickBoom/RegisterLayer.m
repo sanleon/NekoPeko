@@ -37,6 +37,7 @@
     [userDefaults synchronize];
     apiConnection = [APIConnection sharedAPIConnection];
     apiConnection.delegate = self;
+    [apiConnection setIsLogined:NO];
     
     someField = [[UITextField alloc] initWithFrame:CGRectMake(30, 58, 260, 28)];
     someField.delegate = self;

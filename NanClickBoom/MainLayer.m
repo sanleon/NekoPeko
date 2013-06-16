@@ -40,10 +40,17 @@
     NSNumber *tempDrawCount =[userDefaults valueForKey:@"DrawCount"];
     
     CGSize size = [[CCDirector sharedDirector] winSize];
-    CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-    backImage.position = CGPointMake(size.width/2, size.height/2);
-    [self addChild:backImage z:0];
-    
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+//    if (screenBounds.size.height == 568) {
+//        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
+//        backImage.position = CGPointMake(size.width/2, size.height/2);
+//        [self addChild:backImage z:0];
+//
+//    } else {
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
+        backImage.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:backImage z:0];
+//    }
     CCSprite *characterImage =[CCSprite spriteWithFile:@"main_first_my_cha.png"];
     characterImage.position = ccp(39, 441);
     [self addChild:characterImage];
