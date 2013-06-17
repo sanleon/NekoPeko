@@ -40,28 +40,14 @@
 	return scene;
 }
 
-- (void) onEnter
+- (void)setFindPlayerImages:(NSInteger)plusSize
 {
-    [super onEnter];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:ACTION_FIND_PLAYER forKey:ACTION_TYPE];
-
-
-//    [userDefaults setInteger:0 forKey:@"ClickedTileCount"];
-    [userDefaults setInteger:0 forKey:@"CurrentGameCount"];
-    [userDefaults synchronize];
-    
-    isFindEnmey = NO;
-    
     CGSize size = [[CCDirector sharedDirector] winSize];
-    CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-    backImage.position = CGPointMake(size.width/2, size.height/2);
-    [self addChild:backImage z:0];
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"相手を探しています" fontName:@"Marker Felt" fontSize:24];
-    label.position =  ccp(size.width/2 ,380);
+    label.position =  ccp(size.width/2 ,380+plusSize);
     label.color = ccc3(0, 0, 0);
     [self addChild:label];
-   
+    
     CCSprite* animationimage = [CCSprite spriteWithFile:@"00.png"];
     
     //        // 画像の配置場所の設定
@@ -95,7 +81,37 @@
     CCAnimate * animate = [CCAnimate actionWithAnimation:animation];
     
     [animationimage runAction:animate];
+}
 
+- (void) onEnter
+{
+    [super onEnter];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:ACTION_FIND_PLAYER forKey:ACTION_TYPE];
+
+
+//    [userDefaults setInteger:0 forKey:@"ClickedTileCount"];
+    [userDefaults setInteger:0 forKey:@"CurrentGameCount"];
+    [userDefaults synchronize];
+    
+    isFindEnmey = NO;
+    
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
+        backImage.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:backImage z:0];
+        [self setFindPlayerImages:88];
+        
+    } else {
+        CGSize wsize = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
+        backImage.position = CGPointMake(wsize.width/2, wsize.height/2);
+        [self addChild:backImage z:0];
+        
+        [self setFindPlayerImages:0];
+    }
 
     
     // Start Animation

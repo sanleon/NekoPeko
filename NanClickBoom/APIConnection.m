@@ -64,7 +64,9 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
     if (error) {
-        [[self delegate] receivedErrorFromAction:[error description]];
+        if (self && [self delegate]) {
+            [[self delegate] receivedErrorFromAction:[error description]];
+        }
     }
 
 }

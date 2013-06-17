@@ -63,19 +63,16 @@
 	// ask director for the window size
 	CGSize size = [[CCDirector sharedDirector] winSize];
 	CCSprite *background;
-    
-    background = [CCSprite spriteWithFile:@"Default.png"];
-    background.rotation = 360;
 
-//    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-//    if (screenBounds.size.height == 568) {
-//        background = [CCSprite spriteWithFile:@"Default-568h@2x.png"];
-//        background.rotation = 360;
-//
-//    } else {
-//        background = [CCSprite spriteWithFile:@"Default.png"];
-//        background.rotation = 360;
-//    }
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        background = [CCSprite spriteWithFile:@"Default-568h@2x.png"];
+        background.rotation = 360;
+
+    } else {
+        background = [CCSprite spriteWithFile:@"Default.png"];
+        background.rotation = 360;
+    }
 //	if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ) {
 //		background = [CCSprite spriteWithFile:@"Default.png"];
 //		background.rotation = 360;
@@ -102,6 +99,10 @@
 {   
     NSLog(@"IntroLayer MakeTransaction");
 //    if ([apiConnection isConnecting]) {
+    if (apiConnection == nil) {
+        apiConnection = [APIConnection sharedAPIConnection];
+
+    }
         if (![apiConnection isConnected]) {
             apiConnection.delegate = self;
             [apiConnection setActionType:CONNECT_TO_SERVER];
@@ -123,7 +124,7 @@
 //
 //            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[RegisterLayer scene] withColor:ccWHITE]];
 //        }
-    }
+        }
 }
 
 
@@ -144,6 +145,7 @@
         [userDefaults setObject:nil forKey:@"NumClickUserID"];
         [userDefaults setObject:nil forKey:@"NumClickUUID"];
         [userDefaults synchronize];
+        [AccountManager deleteAllAccount];
         NSLog(@"Error Message : %@", message);
         // TODO
         // GameLayerを表示します
@@ -258,5 +260,6 @@
  
 
 }
+
 
 @end

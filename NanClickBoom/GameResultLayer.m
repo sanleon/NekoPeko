@@ -45,7 +45,7 @@
 	return scene;
 }
 
-- (void)setGameResultImage
+- (void)setGameResultImage:(NSInteger)plusSize
 {
     
     CGSize size = [[CCDirector sharedDirector] winSize];
@@ -55,7 +55,7 @@
     //    [self addChild:label z:1];
     
     CCLabelTTF *winCountlabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", winCount] fontName:@"AmericanTypewriter-Bold" fontSize:60];
-    winCountlabel.position =  ccp(18 ,355);
+    winCountlabel.position =  ccp(18 ,355+plusSize);
     winCountlabel.color = ccc3(31, 138, 232);
     winCountlabel.anchorPoint = ccp(0.0, 1.0);
     winCountlabel.dimensions = CGSizeMake(100, 0);
@@ -63,7 +63,7 @@
     
     
     CCSprite *winLabelImage = [CCSprite spriteWithFile:@"result_me_title_win.png"];
-    winLabelImage.position = ccp(37, 356);
+    winLabelImage.position = ccp(37, 356+plusSize);
     [self addChild:winLabelImage];
     
     //    CCLabelTTF *winlabel = [CCLabelTTF labelWithString:@"Win" fontName:@"AmericanTypewriter-Bold" fontSize:24];
@@ -74,7 +74,7 @@
     
     
     CCLabelTTF *loseCountlabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", loseCount] fontName:@"AmericanTypewriter-Bold" fontSize:60];
-    loseCountlabel.position =  ccp(311 ,355);
+    loseCountlabel.position =  ccp(311 ,355+plusSize);
     loseCountlabel.color = ccc3(252, 44, 37);
     loseCountlabel.anchorPoint = ccp(1.0, 1.0);
     loseCountlabel.dimensions = CGSizeMake(100, 0);
@@ -86,11 +86,11 @@
     //    [self addChild:loselabel z:1];
     
     CCSprite *loseLabelImage = [CCSprite spriteWithFile:@"result_me_title_lose.png"];
-    loseLabelImage.position = ccp(289, 356);
+    loseLabelImage.position = ccp(289, 356+plusSize);
     [self addChild:loseLabelImage];
     
     CCLabelTTF *drawCountlabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", drawCount] fontName:@"AmericanTypewriter-Bold" fontSize:60];
-    drawCountlabel.position =  ccp(160 ,321);
+    drawCountlabel.position =  ccp(160 ,321+plusSize);
     drawCountlabel.color = ccc3(119, 87, 116);
     drawCountlabel.anchorPoint = ccp(0.5, 0.5);
     drawCountlabel.dimensions = CGSizeMake(100, 0);
@@ -102,7 +102,7 @@
     //    [self addChild:loselabel z:1];
     
     CCSprite *drawLabelImage = [CCSprite spriteWithFile:@"result_me_title_draw.png"];
-    drawLabelImage.position = ccp(160, 356);
+    drawLabelImage.position = ccp(160, 356+plusSize);
     [self addChild:drawLabelImage];
     
     CCSprite *resultImage;
@@ -129,13 +129,13 @@
             [gameResultAnimation.grAnimation addSpriteFrameWithFilename:[NSString stringWithFormat:@"result_me_result_draw_%d.png", i]];
         }
     }
-    resultImage.position = ccp(160, 409);
+    resultImage.position = ccp(160, 409+plusSize);
     [self addChild:resultImage z:1];
     
     
     
     CCSprite *borderImage = [CCSprite spriteWithFile:@"result_border.png"];
-    borderImage.position = ccp(160, 255);
+    borderImage.position = ccp(160, 255+plusSize);
     [self addChild:borderImage];
 
     gameResultAnimation.grAnimation.delayPerUnit = 0.2;
@@ -160,9 +160,20 @@
     [userDefaults synchronize];
     
     CGSize size = [[CCDirector sharedDirector] winSize];
-    CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-    backImage.position = CGPointMake(size.width/2, size.height/2);
-    [self addChild:backImage z:0];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
+        backImage.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:backImage z:0];
+        
+        
+    } else {
+        CGSize wsize = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
+        backImage.position = CGPointMake(wsize.width/2, wsize.height/2);
+        [self addChild:backImage z:0];
+    }
     
     if (isForceGameEnd) {
         apiConnection = [APIConnection sharedAPIConnection];
@@ -172,7 +183,13 @@
         isForceGameEnd = NO;
 
     } else {
-        [self setGameResultImage];
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if (screenBounds.size.height == 568) {
+
+            [self setGameResultImage:88];
+        } else {
+            [self setGameResultImage:0];
+        }
     }
     
     CCMenuItemImage *item = [CCMenuItemImage itemWithNormalImage:@"signup_btn_ok.png" selectedImage:@"signup_btn_ok.png" block:^(id sender){
@@ -185,12 +202,20 @@
         
     }];
     
+    // TODO
     CCMenu *menu = [CCMenu menuWithItems:item, nil];
-    menu.position = CGPointMake(size.width/2, 227);
+    
+    if (screenBounds.size.height == 568) {
+        menu.position = CGPointMake(size.width/2, 227+88);
+    } else {
+        menu.position = CGPointMake(size.width/2, 227);
+    }
     
     // add the label as a child to this Layer
     //    [self addChild: label];
     [self addChild: menu z:2];
+    
+
 //    if (gameResult == 1) {
 //        [ModalAlert Tell:@"相手が接続を終了しました。勝利です。" onLayer:self okBlock:^{
 //        }];
@@ -216,29 +241,41 @@
 {
     if (messageDic) {
         if (gameResult == 1) {
-           
-                NSDictionary *recordDic = [messageDic valueForKey:@"record"];
-                NSNumber *tempWinCount = [recordDic objectForKey:@"win"];
-                NSNumber *tempLoseCount = [recordDic objectForKey:@"lose"];
-                NSNumber *tempDrawCount = [recordDic objectForKey:@"draw"];
-                [self setWinCount:[tempWinCount intValue]];
-                [self setLoseCount:[tempLoseCount intValue]];
-                [self setDrawCount:[tempDrawCount intValue]];
-                [self setGameResultImage];
-
+            
+            NSDictionary *recordDic = [messageDic valueForKey:@"record"];
+            NSNumber *tempWinCount = [recordDic objectForKey:@"win"];
+            NSNumber *tempLoseCount = [recordDic objectForKey:@"lose"];
+            NSNumber *tempDrawCount = [recordDic objectForKey:@"draw"];
+            [self setWinCount:[tempWinCount intValue]];
+            [self setLoseCount:[tempLoseCount intValue]];
+            [self setDrawCount:[tempDrawCount intValue]];
+            CGRect screenBounds = [[UIScreen mainScreen] bounds];
+            if (screenBounds.size.height == 568) {
+                
+                [self setGameResultImage:88];
+            } else {
+                [self setGameResultImage:0];
+            }
+            
         } else if(gameResult == 2) {
             
-                NSDictionary *recordDic = [messageDic valueForKey:@"record"];
-                NSNumber *tempWinCount = [recordDic objectForKey:@"win"];
-                NSNumber *tempLoseCount = [recordDic objectForKey:@"lose"];
-                NSNumber *tempDrawCount = [recordDic objectForKey:@"draw"];
-                [self setWinCount:[tempWinCount intValue]];
-                [self setLoseCount:[tempLoseCount intValue]];
-                [self setDrawCount:[tempDrawCount intValue]];
-                [self setGameResultImage];
-
+            NSDictionary *recordDic = [messageDic valueForKey:@"record"];
+            NSNumber *tempWinCount = [recordDic objectForKey:@"win"];
+            NSNumber *tempLoseCount = [recordDic objectForKey:@"lose"];
+            NSNumber *tempDrawCount = [recordDic objectForKey:@"draw"];
+            [self setWinCount:[tempWinCount intValue]];
+            [self setLoseCount:[tempLoseCount intValue]];
+            [self setDrawCount:[tempDrawCount intValue]];
+            CGRect screenBounds = [[UIScreen mainScreen] bounds];
+            if (screenBounds.size.height == 568) {
+                
+                [self setGameResultImage:88];
+            } else {
+                [self setGameResultImage:0];
+            }
+            
         }
-         
+        
 
     }
 

@@ -70,10 +70,19 @@
 - (void) onEnter
 {
     [super onEnter];
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-    backImage.position = CGPointMake(winSize.width/2, winSize.height/2);
-    [self addChild:backImage z:0];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
+        backImage.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:backImage z:0];
+    } else {
+        CGSize wsize = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
+        backImage.position = CGPointMake(wsize.width/2, wsize.height/2);
+        [self addChild:backImage z:0];
+    }
+    
 
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:ACTION_SCORE_ADD_UP forKey:ACTION_TYPE];
@@ -97,17 +106,19 @@
     if (isEnemyDissconnected) {
         NSLog(@"Game EnemyDisconnected");
         [self setGameResult:1];
-        [self setImagesForBG];
+        if (screenBounds.size.height == 568) {
+            [self setImagesForBG:88];
+        } else {
+            [self setImagesForBG:0];
+        }
+
     }
 
 }
 
-- (void) setImagesForBG
+- (void) setImagesForBG:(NSInteger)plusSize
 {
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-    backImage.position = CGPointMake(winSize.width/2, winSize.height/2);
-    [self addChild:backImage z:0];
     
     //    [self createAttackAnimation];
     
@@ -117,14 +128,14 @@
     NSLog(@"EnemyScore : %d", enemyScore);
     
     myScoreLabel = [CCLabelTTF labelWithString:@"" fontName:@"AmericanTypewriter-Bold" fontSize:50];
-    myScoreLabel.position =  ccp(9, 235);
+    myScoreLabel.position =  ccp(9, 235+plusSize);
     myScoreLabel.color = ccc3(31, 138, 232);
     myScoreLabel.anchorPoint = ccp(0.0, 1.0);
     myScoreLabel.dimensions = CGSizeMake(100, 0);
     [self addChild:myScoreLabel];
     
     enemyScoreLabel = [CCLabelTTF labelWithString:@"" fontName:@"AmericanTypewriter-Bold" fontSize:50];
-    enemyScoreLabel.position =  ccp(311, 235);
+    enemyScoreLabel.position =  ccp(311, 235+plusSize);
     enemyScoreLabel.anchorPoint = ccp(1.0, 1.0);
     enemyScoreLabel.color = ccc3(252, 44, 37);
     enemyScoreLabel.dimensions = CGSizeMake(100, 0);
@@ -147,27 +158,27 @@
     [self addChild:attackAnimation];
     
     CCSprite * myHpBarProgressBorder = [CCSprite spriteWithFile: @"main_game_guage_bg_me.png"];
-    [myHpBarProgressBorder setPosition:ccp(81, 440.5)];
+    [myHpBarProgressBorder setPosition:ccp(81, 440.5+plusSize)];
     [self addChild: myHpBarProgressBorder z:1];
     
     CCSprite * myCharacterImage = [CCSprite spriteWithFile: @"main_game_guage_cha_me.png"];
-    [myCharacterImage setPosition:ccp(27, 451)];
+    [myCharacterImage setPosition:ccp(27, 451+plusSize)];
     [self addChild: myCharacterImage z:2];
     
     
     CCLabelTTF *myUserIdLabel = [CCLabelTTF labelWithString:myUserId fontName:@"AmericanTypewriter-Bold" fontSize:10];
-    myUserIdLabel.position =  ccp(47.5, 432.2);
+    myUserIdLabel.position =  ccp(47.5, 432.2+plusSize);
     myUserIdLabel.color = ccc3(0, 0, 0);
     myUserIdLabel.anchorPoint = ccp(0.0, 1.0);
     [self addChild:myUserIdLabel];
     
     CCSprite *myAttackLabelImage = [CCSprite spriteWithFile: @"result_title_me.png"];
-    [myAttackLabelImage setPosition:ccp(37, 363)];
+    [myAttackLabelImage setPosition:ccp(37, 363+plusSize)];
     myAttackLabelImage.anchorPoint = ccp(0.5, 0.5);
     [self addChild: myAttackLabelImage z:1];
     
     CCLabelTTF *myAttackScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", count*attackBaseScore] fontName:@"AmericanTypewriter-Bold" fontSize:50];
-    myAttackScoreLabel.position =  ccp(9.0, 355);
+    myAttackScoreLabel.position =  ccp(9.0, 355+plusSize);
     myAttackScoreLabel.color = ccc3(31, 138, 232);
     myAttackScoreLabel.anchorPoint = ccp(0.0, 1.0);
     myAttackScoreLabel.dimensions = CGSizeMake(100, 0);
@@ -179,14 +190,14 @@
     } else {
         myAttacComboMultiplyLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@", @"x"] fontName:@"AmericanTypewriter-Bold" fontSize:40];
     }
-    myAttacComboMultiplyLabel.position =  ccp(11.0, 303);
+    myAttacComboMultiplyLabel.position =  ccp(11.0, 303+plusSize);
     myAttacComboMultiplyLabel.color = ccc3(0, 217, 255);
     myAttacComboMultiplyLabel.anchorPoint = ccp(0.0, 1.0);
     myAttacComboMultiplyLabel.dimensions = CGSizeMake(100, 0);
     [self addChild:myAttacComboMultiplyLabel];
 
     CCLabelTTF *myAttacComboLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", combo] fontName:@"AmericanTypewriter-Bold" fontSize:44];
-    myAttacComboLabel.position =  ccp(41, 307);
+    myAttacComboLabel.position =  ccp(41, 307+plusSize);
     myAttacComboLabel.color =ccc3(0, 217, 255);
     myAttacComboLabel.anchorPoint = ccp(0.0, 1.0);
     myAttacComboLabel.dimensions = CGSizeMake(100, 0);
@@ -194,19 +205,19 @@
     
     
     CCSprite *myAttackLineImage = [CCSprite spriteWithFile: @"result_title_me_bar.png"];
-    [myAttackLineImage setPosition:ccp(42, 239)];
+    [myAttackLineImage setPosition:ccp(42, 239+plusSize)];
     [self addChild: myAttackLineImage z:1];
     
     
     CCSprite *enemyAttackLabelImage = [CCSprite spriteWithFile: @"result_title_enemy.png"];
-    [enemyAttackLabelImage setPosition:ccp(283, 363)];
+    [enemyAttackLabelImage setPosition:ccp(283, 363+plusSize)];
     enemyAttackLabelImage.anchorPoint = ccp(1.0, 1.0);
     [self addChild: enemyAttackLabelImage z:1];
     
 
     
     CCLabelTTF *enemyAttackScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", enemyCount*attackBaseScore] fontName:@"AmericanTypewriter-Bold" fontSize:50];
-    enemyAttackScoreLabel.position =  ccp(311, 355);
+    enemyAttackScoreLabel.position =  ccp(311, 355+plusSize);
     enemyAttackScoreLabel.color = ccc3(252, 44, 37);
     enemyAttackScoreLabel.anchorPoint = ccp(1.0, 1.0);
     enemyAttackScoreLabel.dimensions = CGSizeMake(100, 0);
@@ -219,14 +230,14 @@
     } else {
         enemyAttacComboMultiplyLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@", @"x"] fontName:@"AmericanTypewriter-Bold" fontSize:40];
     }
-    enemyAttacComboMultiplyLabel.position =  ccp(253, 303);
+    enemyAttacComboMultiplyLabel.position =  ccp(253, 303+plusSize);
     enemyAttacComboMultiplyLabel.color = ccc3(255, 90, 175);
     enemyAttacComboMultiplyLabel.anchorPoint = ccp(0.0, 1.0);
     enemyAttacComboMultiplyLabel.dimensions = CGSizeMake(100, 0);
     [self addChild:enemyAttacComboMultiplyLabel];
     
     CCLabelTTF *enemyAttacComboLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", enemyCombo] fontName:@"AmericanTypewriter-Bold" fontSize:44];
-    enemyAttacComboLabel.position =  ccp(311, 307);
+    enemyAttacComboLabel.position =  ccp(311, 307+plusSize);
     enemyAttacComboLabel.color = ccc3(255, 90, 175);
     enemyAttacComboLabel.anchorPoint = ccp(1.0, 1.0);
     enemyAttacComboLabel.dimensions = CGSizeMake(100, 0);
@@ -234,20 +245,20 @@
     
     
     CCSprite *enemyAttackLineImage = [CCSprite spriteWithFile: @"result_title_enemy_bar.png"];
-    [enemyAttackLineImage setPosition:ccp(282, 239)];
+    [enemyAttackLineImage setPosition:ccp(282, 239+plusSize)];
     [self addChild: enemyAttackLineImage z:1];
     
     
     CCSprite * enemyHpBarProgressBorder = [CCSprite spriteWithFile: @"main_game_guage_bg_enemy.png"];
-    [enemyHpBarProgressBorder setPosition:ccp(241.5, 440.5)];
+    [enemyHpBarProgressBorder setPosition:ccp(241.5, 440.5+plusSize)];
     [self addChild: enemyHpBarProgressBorder z:1];
     
     CCSprite * enemyCharacterImage = [CCSprite spriteWithFile: @"main_game_guage_cha_enemy.png"];
-    [enemyCharacterImage setPosition:ccp(293, 451)];
+    [enemyCharacterImage setPosition:ccp(293, 451+plusSize)];
     [self addChild: enemyCharacterImage z:2];
     
     CCLabelTTF *enemyUserIdLabel = [CCLabelTTF labelWithString:enemyUserId fontName:@"AmericanTypewriter-Bold" fontSize:10];
-    enemyUserIdLabel.position =  ccp(272.5, 432.2);
+    enemyUserIdLabel.position =  ccp(272.5, 432.2+plusSize);
     enemyUserIdLabel.color = ccc3(0, 0, 0);
     enemyUserIdLabel.anchorPoint = ccp(1.0, 1.0);
     [self addChild:enemyUserIdLabel];
@@ -403,14 +414,14 @@
     [enemyScoreLabel setString:[NSString stringWithFormat:@"%d",enemyScore]];
 }
 
-- (void) setPlayerHP
+- (void) setPlayerHP:(NSInteger)plusSize
 {
     
     CCProgressTimer *myHpBarProgressFrom=[CCProgressTimer progressWithSprite:[CCSprite spriteWithFile:@"main_game_guage_me.png"]];
     myHpBarProgressFrom.type=kCCProgressTimerTypeBar;
     //        myHpBarProgressFrom.midpoint = ccp(0,_currentMyHp);
     myHpBarProgressFrom.midpoint = ccp(0,0);
-    myHpBarProgressFrom.position=ccp(98, 445);
+    myHpBarProgressFrom.position=ccp(98, 445+plusSize);
     myHpBarProgressFrom.anchorPoint = ccp(0.50, 0.50);
     myHpBarProgressFrom.percentage=100;
     [myHpBarProgressFrom setBarChangeRate:(ccp(1,0))];
@@ -435,7 +446,7 @@
     //        enemyHpProgressFrom.midpoint = ccp(1,_currentEnemyHp);
     enemyHpProgressFrom.midpoint = ccp(1,0);
     
-    enemyHpProgressFrom.position=ccp(225, 445);
+    enemyHpProgressFrom.position=ccp(225, 445+plusSize);
     enemyHpProgressFrom.anchorPoint = ccp(0.50, 0.50);
     enemyHpProgressFrom.percentage=100;
     [enemyHpProgressFrom setBarChangeRate:(ccp(1,0))];
@@ -543,9 +554,17 @@
             GameLayer *gameLayer =   [GameLayer node];
             [gameLayer setCurrentEnemyHp:remainingEnemyHp];
             [gameLayer setCurrentMyHp:remainMyHp];
+            CGRect screenBounds = [[UIScreen mainScreen] bounds];
+            if (screenBounds.size.height == 568) {
+                [self setImagesForBG:88];
+                [self setPlayerHP:88];
+            } else {
+                [self setImagesForBG:0];
+                [self setPlayerHP:0];
+
+            }
             
-            [self setImagesForBG];
-            [self setPlayerHP];
+
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"AttackStartAnimation" object:self];
             [self schedule:@selector(updateMyScore:) interval:0.01];

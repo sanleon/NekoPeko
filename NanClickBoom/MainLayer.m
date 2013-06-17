@@ -28,31 +28,21 @@
 	return scene;
 }
 
-- (void) onEnter
+- (void)setMainImages:(NSInteger)plusSize
 {
-    [super onEnter];
+    CGSize size = [[CCDirector sharedDirector] winSize];
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:ACTION_MAIN forKey:ACTION_TYPE];
     [userDefaults synchronize];
+    
     
     NSNumber *tempWinCount = [userDefaults valueForKey:@"WinCount"];
     NSNumber *tempLoseCount =[userDefaults valueForKey:@"LoseCount"];
     NSNumber *tempDrawCount =[userDefaults valueForKey:@"DrawCount"];
     
-    CGSize size = [[CCDirector sharedDirector] winSize];
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-//    if (screenBounds.size.height == 568) {
-//        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
-//        backImage.position = CGPointMake(size.width/2, size.height/2);
-//        [self addChild:backImage z:0];
-//
-//    } else {
-        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-        backImage.position = CGPointMake(size.width/2, size.height/2);
-        [self addChild:backImage z:0];
-//    }
     CCSprite *characterImage =[CCSprite spriteWithFile:@"main_first_my_cha.png"];
-    characterImage.position = ccp(39, 441);
+    characterImage.position = ccp(39, 441+plusSize);
     [self addChild:characterImage];
     
     NSMutableArray *accountArray = [AccountManager allAccount];
@@ -62,20 +52,20 @@
         loginId = [accountDic objectForKey:@"acct"];
         uuid = [AccountManager getUUIDByAccountId:[accountDic objectForKey:@"acct"]];
     }
-
+    
     CCLabelTTF *characterLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@ちゃん", loginId]  fontName:@"AmericanTypewriter-Bold" fontSize:15];
-    characterLabel.position = ccp(17.5, 420.0);
+    characterLabel.position = ccp(17.5, 420.0+plusSize);
     characterLabel.color = ccc3(0,0,0);
     characterLabel.anchorPoint = ccp(0.0, 1.0);
     characterLabel.dimensions = CGSizeMake(96, 100);
     [self addChild:characterLabel];
     
     CCSprite *winLabelImage = [CCSprite spriteWithFile:@"result_me_title_win.png"];
-    winLabelImage.position = ccp(293, 459);
+    winLabelImage.position = ccp(293, 459+plusSize);
     [self addChild:winLabelImage];
     
     CCLabelTTF *winCountlabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", tempWinCount.intValue] fontName:@"AmericanTypewriter-Bold" fontSize:60];
-    winCountlabel.position =  ccp(317 ,450);
+    winCountlabel.position =  ccp(317 ,450+plusSize);
     winCountlabel.color = ccc3(31, 138, 232);
     winCountlabel.anchorPoint = ccp(1.0, 1.0);
     winCountlabel.dimensions = CGSizeMake(100, 0);
@@ -83,11 +73,11 @@
     
     
     CCSprite *loseLabelImage = [CCSprite spriteWithFile:@"result_me_title_lose.png"];
-    loseLabelImage.position = ccp(290, 377);
+    loseLabelImage.position = ccp(290, 377+plusSize);
     [self addChild:loseLabelImage];
     
     CCLabelTTF *loseCountlabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", tempLoseCount.intValue] fontName:@"AmericanTypewriter-Bold" fontSize:60];
-    loseCountlabel.position =  ccp(317 ,370);
+    loseCountlabel.position =  ccp(317 ,370+plusSize);
     loseCountlabel.color = ccc3(252, 44, 37);
     loseCountlabel.anchorPoint = ccp(1.0, 1.0);
     loseCountlabel.dimensions = CGSizeMake(100, 0);
@@ -95,11 +85,11 @@
     
     
     CCSprite *drawLabelImage = [CCSprite spriteWithFile:@"result_me_draw.png"];
-    drawLabelImage.position = ccp(286, 290);
+    drawLabelImage.position = ccp(286, 290+plusSize);
     [self addChild:drawLabelImage];
     
     CCLabelTTF *drawCountlabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", tempDrawCount.intValue] fontName:@"AmericanTypewriter-Bold" fontSize:60];
-    drawCountlabel.position =  ccp(317 ,280);
+    drawCountlabel.position =  ccp(317 ,280+plusSize);
     drawCountlabel.color = ccc3(99, 66, 161);
     drawCountlabel.anchorPoint = ccp(1.0, 1.0);
     drawCountlabel.dimensions = CGSizeMake(100, 0);
@@ -115,25 +105,25 @@
     //    loselabel.color = ccc3(0, 0, 0);
     //    [self addChild:loselabel z:1];
     
-
     
     
-//    [CCMenuItemFont setFontName:@"Helvetica-BoldOblique"];
-//    [CCMenuItemFont setFontSize:26];
-//    CCMenuItemFont *onePlayerItem = [CCMenuItemFont itemWithString:@"Single" block:^(id sender){
-//        
-//        // GameLayerを表示します
-//        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameLayer scene] withColor:ccWHITE]];
-//    }];
-//    onePlayerItem.color = ccc3(255, 255, 255);
-
     
-//    CCMenuItemFont *multiPlayerItem = [CCMenuItemFont itemWithString:@"Multi" block:^(id sender){
-//        
-//        // GameLayerを表示します
-//        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[FindPlayerLayer scene] withColor:ccWHITE]];
-//    }];
-//    multiPlayerItem.color = ccc3(255, 255, 255);
+    //    [CCMenuItemFont setFontName:@"Helvetica-BoldOblique"];
+    //    [CCMenuItemFont setFontSize:26];
+    //    CCMenuItemFont *onePlayerItem = [CCMenuItemFont itemWithString:@"Single" block:^(id sender){
+    //
+    //        // GameLayerを表示します
+    //        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameLayer scene] withColor:ccWHITE]];
+    //    }];
+    //    onePlayerItem.color = ccc3(255, 255, 255);
+    
+    
+    //    CCMenuItemFont *multiPlayerItem = [CCMenuItemFont itemWithString:@"Multi" block:^(id sender){
+    //
+    //        // GameLayerを表示します
+    //        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[FindPlayerLayer scene] withColor:ccWHITE]];
+    //    }];
+    //    multiPlayerItem.color = ccc3(255, 255, 255);
     
     CCMenuItemImage *multiPlayItem = [CCMenuItemImage itemWithNormalImage:@"result_bt_finduser.png" selectedImage:@"result_bt_finduser.png" block:^(id sender){
         
@@ -150,6 +140,33 @@
     CCSprite *bottomImage =[CCSprite spriteWithFile:@"main_first_my_bottom_cha.png"];
     bottomImage.position = ccp(160, 80);
     [self addChild:bottomImage z:4];
+}
+
+- (void) onEnter
+{
+    [super onEnter];
+
+    
+
+    
+
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
+        backImage.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:backImage z:0];
+        [self setMainImages:88];
+
+    } else {
+        CGSize wsize = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
+        backImage.position = CGPointMake(wsize.width/2, wsize.height/2);
+        [self addChild:backImage z:0];
+
+        [self setMainImages:0];
+    }
+ 
     
 }
 

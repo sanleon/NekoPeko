@@ -29,16 +29,8 @@
 	return scene;
 }
 
-- (void) onEnter
+- (void)setRegisterImages:(NSInteger) plusSize
 {
-    [super onEnter];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:ACTION_REGISTER forKey:ACTION_TYPE];
-    [userDefaults synchronize];
-    apiConnection = [APIConnection sharedAPIConnection];
-    apiConnection.delegate = self;
-    [apiConnection setIsLogined:NO];
-    
     someField = [[UITextField alloc] initWithFrame:CGRectMake(30, 58, 260, 28)];
     someField.delegate = self;
     someField.alpha = 0.0;
@@ -46,27 +38,25 @@
     [someField setPlaceholder:@"ログインIDを入力してください"];
     
     [someField setBackgroundColor:[UIColor whiteColor]];
+    
     CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-    backImage.position = CGPointMake(winSize.width/2, winSize.height/2);
-    [self addChild:backImage z:0];
     
     CCSprite * inputForm = [CCSprite spriteWithFile:@"signup_input_form.png"];
-    inputForm.position = ccp(winSize.width/2, 421);
+    inputForm.position = ccp(winSize.width/2, 421+plusSize);
     [self addChild:inputForm z:1];
     
     NSLog(@"winSize.height/2 %f", winSize.height/2);
     NSLog(@"winSize.width/2 %f", winSize.width/2);
     CCSprite * startDevideBar = [CCSprite spriteWithFile:@"signup_devide_bar.png"];
-    startDevideBar.position = CGPointMake(winSize.width/2, 358);
+    startDevideBar.position = CGPointMake(winSize.width/2, 358+plusSize);
     [self addChild:startDevideBar z:2];
     
     CCSprite * selectCat = [CCSprite spriteWithFile:@"signup_select_cat.png"];
-    selectCat.position = CGPointMake(winSize.width/2, 264);
+    selectCat.position = CGPointMake(winSize.width/2, 264+plusSize);
     [self addChild:selectCat z:2];
     
     CCSprite * endDevideBar = [CCSprite spriteWithFile:@"signup_devide_bar.png"];
-    endDevideBar.position = CGPointMake(winSize.width/2, 163);
+    endDevideBar.position = CGPointMake(winSize.width/2, 163+plusSize);
     [self addChild:endDevideBar z:2];
     
     CCSprite * bottomAni = [CCSprite spriteWithFile:@"signup_bottom_ani.png"];
@@ -77,8 +67,8 @@
     
     
     // create and initialize a Label
-//    CCLabelTTF *label = [CCLabelTTF labelWithString:@"登録画面" fontName:@"Marker Felt" fontSize:24];
-
+    //    CCLabelTTF *label = [CCLabelTTF labelWithString:@"登録画面" fontName:@"Marker Felt" fontSize:24];
+    
     
     CCMenuItemImage *item = [CCMenuItemImage itemWithNormalImage:@"signup_btn_ok.png" selectedImage:@"signup_btn_ok.png" block:^(id sender){
         receiveMessageDic = nil;
@@ -91,12 +81,12 @@
     }];
     
     CCMenu *menu = [CCMenu menuWithItems:item, nil];
-    menu.position = CGPointMake(winSize.width/2, 127);
+    menu.position = CGPointMake(winSize.width/2, 127+plusSize);
     
     // add the label as a child to this Layer
     //    [self addChild: label];
     [self addChild: menu z:5];
-
+    
     
     
     // TODO 位置修正
@@ -108,6 +98,37 @@
     CGSize size = [[CCDirector sharedDirector] winSize];
     
     [[[CCDirector sharedDirector] view] addSubview:someField];
+}
+
+- (void) onEnter
+{
+    [super onEnter];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:ACTION_REGISTER forKey:ACTION_TYPE];
+    [userDefaults synchronize];
+    apiConnection = [APIConnection sharedAPIConnection];
+    apiConnection.delegate = self;
+    [apiConnection setIsLogined:NO];
+    
+
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
+        backImage.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:backImage z:0];
+        [self setRegisterImages:88];
+        
+    } else {
+        CGSize wsize = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
+        backImage.position = CGPointMake(wsize.width/2, wsize.height/2);
+        [self addChild:backImage z:0];
+        
+        [self setRegisterImages:0];
+    }
+
+
     // position the label on the center of the screen
     // TODO 位置選定が必要
 //    label.position =  ccp(size.width/2 ,380);

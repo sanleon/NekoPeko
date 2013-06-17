@@ -124,9 +124,10 @@ BOOL isConnecting;
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
     NSLog(@"%@",@"applicationDidBecomeActive");
+    apiConnection = [APIConnection sharedAPIConnection];
     if( [navController_ visibleViewController] == director_ ) {
         NSLog(@"%@",@"resume");
-
+        
         [director_ resume];
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString* actionType = [userDefaults objectForKey:ACTION_TYPE];

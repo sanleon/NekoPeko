@@ -76,7 +76,7 @@ enum {
     return self;
 }
 
-- (void)startGamePlay
+- (void)startGamePlay:(NSInteger)plusSize
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:ACTION_GAME forKey:ACTION_TYPE];
@@ -94,7 +94,8 @@ enum {
     _currentGamePlayCount= 0;
     
     CCLabelTTF *comboCountLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"x%d", _currentGamePlayCount] fontName:@"Helvetica-Bold" fontSize:24];
-    comboCountLabel.position =  ccp(255, 381.5);
+    // TODO
+    comboCountLabel.position =  ccp(255, 381.5+plusSize);
     comboCountLabel.color = ccc3(255, 255, 255);
     [self addChild:comboCountLabel z:2 tag:902];
 
@@ -116,8 +117,8 @@ enum {
     //        enemyUserIdLabel.color = ccc3(255, 255, 255);
     //        [self addChild:enemyUserIdLabel];
     //    }
-    
-    [self setPlayerHP];
+    // TODO
+    [self setPlayerHP:plusSize];
     
     //    CCTexture2D* texture = [[CCTextureCache sharedTextureCache] addCGImage:[self shapingImageNamed:@"fish_01.png"].CGImage forKey:nil];
     
@@ -378,33 +379,74 @@ enum {
 //        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[MainLayer scene] withColor:ccWHITE]];
 //        return;
 //    }
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg-568h@2x.png"];
+        backImage.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:backImage z:0];
+        [self setUpMainImage:88];
+        
+        [userDefaults setObject:ACTION_GAME forKey:ACTION_TYPE];
+        [userDefaults synchronize];
+        
+        NSNumber *tempCurrentGameCount = [userDefaults objectForKey:@"CurrentGameCount"];
+        _currentGameCount =[tempCurrentGameCount intValue];
+        
+        _currentGameCount =  _currentGameCount + 1;
+        
+        
+        currentTimeForGameStart = waitTimeForGameStart;
+        gameRestartWaitTime = waitTimeForGamePlayReStart;
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        waitTimeLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%.f",currentTimeForGameStart] fontName:@"Helvetica-Bold" fontSize:50];
+        waitTimeLabel.position = CGPointMake(winSize.width/2, winSize.height/2);
+        waitTimeLabel.color = ccc3(0, 0, 0);
+        [self addChild:waitTimeLabel z:6];
+        
+        
+        currentRoundLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Round %d!",_currentGameCount] fontName:@"Helvetica-Bold" fontSize:50];
+        // TODO
+        currentRoundLabel.position = CGPointMake(winSize.width/2,290+88);
+        currentRoundLabel.color = ccc3(0, 0, 0);
+        [self addChild:currentRoundLabel z:6];
+        [self schedule:@selector(updateWaitTimeForGameStart) interval:1];
+        
+    } else {
+        CGSize wsize = [[CCDirector sharedDirector] winSize];
+        CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
+        backImage.position = CGPointMake(wsize.width/2, wsize.height/2);
+        [self addChild:backImage z:0];
+        
+        [self setUpMainImage:0];
+        
+        [userDefaults setObject:ACTION_GAME forKey:ACTION_TYPE];
+        [userDefaults synchronize];
+        
+        NSNumber *tempCurrentGameCount = [userDefaults objectForKey:@"CurrentGameCount"];
+        _currentGameCount =[tempCurrentGameCount intValue];
+        
+        _currentGameCount =  _currentGameCount + 1;
+        
+        
+        currentTimeForGameStart = waitTimeForGameStart;
+        gameRestartWaitTime = waitTimeForGamePlayReStart;
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        waitTimeLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%.f",currentTimeForGameStart] fontName:@"Helvetica-Bold" fontSize:50];
+        waitTimeLabel.position = CGPointMake(winSize.width/2, winSize.height/2);
+        waitTimeLabel.color = ccc3(0, 0, 0);
+        [self addChild:waitTimeLabel z:6];
+        
+        
+        currentRoundLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Round %d!",_currentGameCount] fontName:@"Helvetica-Bold" fontSize:50];
+        // TODO
+        currentRoundLabel.position = CGPointMake(winSize.width/2,290);
+        currentRoundLabel.color = ccc3(0, 0, 0);
+        [self addChild:currentRoundLabel z:6];
+        [self schedule:@selector(updateWaitTimeForGameStart) interval:1];
+    }
     
-    
-    [self setUpMainImage];
 
-    [userDefaults setObject:ACTION_GAME forKey:ACTION_TYPE];
-    [userDefaults synchronize];
-    
-    NSNumber *tempCurrentGameCount = [userDefaults objectForKey:@"CurrentGameCount"];
-    _currentGameCount =[tempCurrentGameCount intValue];
-    
-    _currentGameCount =  _currentGameCount + 1;
-    
-    
-    currentTimeForGameStart = waitTimeForGameStart;
-    gameRestartWaitTime = waitTimeForGamePlayReStart;
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    waitTimeLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%.f",currentTimeForGameStart] fontName:@"Helvetica-Bold" fontSize:50];
-    waitTimeLabel.position = CGPointMake(winSize.width/2, winSize.height/2);
-    waitTimeLabel.color = ccc3(0, 0, 0);
-    [self addChild:waitTimeLabel z:6];
-    
-    
-    currentRoundLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Round %d!",_currentGameCount] fontName:@"Helvetica-Bold" fontSize:50];
-    currentRoundLabel.position = CGPointMake(winSize.width/2,290);
-    currentRoundLabel.color = ccc3(0, 0, 0);
-    [self addChild:currentRoundLabel z:6];
-    [self schedule:@selector(updateWaitTimeForGameStart) interval:1];
     
 //    [self startGamePlay];
 //    // create and initialize a Label
@@ -423,19 +465,16 @@ enum {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) setUpMainImage
+- (void) setUpMainImage:(NSInteger)plusSize
 {
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite * backImage = [CCSprite spriteWithFile:@"common_bg.png"];
-    backImage.position = CGPointMake(winSize.width/2, winSize.height/2);
-    [self addChild:backImage z:0];
+
     
     CCSprite * comboImage = [CCSprite spriteWithFile:@"main_game_playground_combo1.png"];
-    comboImage.position = ccp(164, 369);
+    comboImage.position = ccp(164, 369+plusSize);
     [self addChild:comboImage z:1 tag:901];
     
     CCSprite * gameMainImage = [CCSprite spriteWithFile:@"main_game_playground.png"];
-    gameMainImage.position = CGPointMake(160, 221);
+    gameMainImage.position = CGPointMake(160, 221+plusSize);
     [self addChild:gameMainImage z:1];
     
 
@@ -460,8 +499,12 @@ enum {
         [self removeChild:currentRoundLabel cleanup:YES];
 
         [self removeChild:waitTimeLabel cleanup:YES];
-
-        [self startGamePlay];
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if (screenBounds.size.height == 568) {
+            [self startGamePlay:88];
+        } else {
+            [self startGamePlay:0];
+        }
         return;
     }
     [waitTimeLabel setString:[NSString stringWithFormat:@"%.f",currentTimeForGameStart]];
@@ -512,7 +555,7 @@ enum {
         tile.position = CGPointMake(startX + tileSize.width / 2 + tileSize.width * (i % sideTileCount), winSize.height -startY - tileSize.height / 2 - tileSize.height * (i / sideTileCount));
         [tile setOrigPositionX:tile.position.x];
         [tile setOrigPositionY:tile.position.y];
-        tile.actionList = [[NSMutableArray alloc] init];
+        tile.actionList = [[[NSMutableArray alloc] init] autorelease];
         [tile setTileAction];
         [tile shuffleAction];
         [tile addOriginMoveAction];
@@ -578,16 +621,16 @@ enum {
 //    }
 //}
 
-- (void)plusCountCombo
+- (void)plusCountCombo:(NSInteger)plusSize
 {
     [self removeChildByTag:901 cleanup:YES];
     CCSprite * comboImage = [CCSprite spriteWithFile:[NSString stringWithFormat:@"main_game_playground_combo%d.png", _currentGamePlayCount]];
-    comboImage.position = ccp(164, 369);
+    comboImage.position = ccp(164, 369+plusSize);
     [self addChild:comboImage z:0 tag:901];
     
     [self removeChildByTag:902 cleanup:YES];
     CCLabelTTF *comboCountLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"x%d", _currentGamePlayCount] fontName:@"Helvetica-Bold" fontSize:24];
-    comboCountLabel.position =  ccp(255, 381.5);
+    comboCountLabel.position =  ccp(255, 381.5+plusSize);
     comboCountLabel.color = ccc3(255, 255, 255);
     [self addChild:comboCountLabel z:2 tag:902];
 }
@@ -628,9 +671,15 @@ enum {
     } else if([notification.name isEqual: GAME_PLAY_END]) {
         _currentNum = 0;
         _currentGamePlayCount = _currentGamePlayCount + 1;
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        // TODO
+        if (screenBounds.size.height == 568) {
         
-        
-        [self plusCountCombo];
+            [self plusCountCombo:88];
+        } else {
+            [self plusCountCombo:0];
+            
+        }
         
         //[self removeTiles];
         if (gamePalyCount >= _currentGamePlayCount) {
@@ -888,7 +937,7 @@ enum {
 }
 
 
-- (void) setPlayerHP
+- (void) setPlayerHP:(NSInteger)plusSize
 {
 //    CGSize winSize = [[CCDirector sharedDirector] winSize];
 //    CCLabelTTF *label = [CCLabelTTF labelWithString:@"集計" fontName:@"Marker Felt" fontSize:24];
@@ -897,31 +946,31 @@ enum {
 //    [self addChild:label];
     
     CCLabelTTF *attackLabel = [CCLabelTTF labelWithString:@"attack count" fontName:@"Marker Felt" fontSize:10];
-    attackLabel.position =  ccp(29, 400.5);
+    attackLabel.position =  ccp(29, 400.5+plusSize);
     attackLabel.color = ccc3(0, 0, 0);
     attackLabel.anchorPoint = ccp(0.5, 0.5);
     [self addChild:attackLabel];
     
     attackPointLabel = [CCLabelTTF labelWithString:@"0" fontName:@"Marker Felt" fontSize:24];
-    attackPointLabel.position =  ccp(14, 396);
+    attackPointLabel.position =  ccp(14, 396+plusSize);
     attackPointLabel.color = ccc3(0, 0, 0);
     attackPointLabel.anchorPoint = ccp(0.0, 1.0);
     attackPointLabel.dimensions = CGSizeMake(100, 0);
     [self addChild:attackPointLabel z:3 tag:3001];
     
     CCSprite * myHpBarProgressBorder = [CCSprite spriteWithFile: @"main_game_guage_bg_me.png"];
-    [myHpBarProgressBorder setPosition:ccp(81, 440.5)];
+    [myHpBarProgressBorder setPosition:ccp(81, 440.5+plusSize)];
     [self addChild: myHpBarProgressBorder z:1];
     
     CCSprite * myCharacterImage = [CCSprite spriteWithFile: @"main_game_guage_cha_me.png"];
-    [myCharacterImage setPosition:ccp(27, 451)];
+    [myCharacterImage setPosition:ccp(27, 451+plusSize)];
     [self addChild: myCharacterImage z:2];
 
 //    if ((myUserId != nil && ![myUserId isEqualToString:@""]) && (enemyUserId != nil && ![enemyUserId isEqualToString:@""])) {
 
        
         CCLabelTTF *myUserIdLabel = [CCLabelTTF labelWithString:myUserId fontName:@"Marker Felt" fontSize:10];
-        myUserIdLabel.position =  ccp(47.5, 432.2);
+        myUserIdLabel.position =  ccp(47.5, 432.2+plusSize);
         myUserIdLabel.color = ccc3(0, 0, 0);
         myUserIdLabel.anchorPoint = ccp(0.0, 1.0);
         [self addChild:myUserIdLabel];
@@ -930,7 +979,7 @@ enum {
         myHpBarProgressFrom.type=kCCProgressTimerTypeBar;
 //        myHpBarProgressFrom.midpoint = ccp(0,_currentMyHp);
                 myHpBarProgressFrom.midpoint = ccp(0,0);
-        myHpBarProgressFrom.position=ccp(98, 445);
+        myHpBarProgressFrom.position=ccp(98, 445+plusSize);
         myHpBarProgressFrom.anchorPoint = ccp(0.50, 0.50);
         myHpBarProgressFrom.percentage=100;
         [myHpBarProgressFrom setBarChangeRate:(ccp(1,0))];
@@ -957,7 +1006,7 @@ enum {
 //        [self addChild: progressBorder2 z:1];
     
     CCLabelTTF *enemyUserIdLabel = [CCLabelTTF labelWithString:enemyUserId fontName:@"Marker Felt" fontSize:10];
-    enemyUserIdLabel.position =  ccp(272.5, 432.2);
+    enemyUserIdLabel.position =  ccp(272.5, 432.2+plusSize);
     enemyUserIdLabel.color = ccc3(0, 0, 0);
     enemyUserIdLabel.anchorPoint = ccp(1.0, 1.0);
     [self addChild:enemyUserIdLabel];
@@ -968,11 +1017,11 @@ enum {
 //        [self addChild:enemyUserIdLabel];
     
     CCSprite * enemyHpBarProgressBorder = [CCSprite spriteWithFile: @"main_game_guage_bg_enemy.png"];
-    [enemyHpBarProgressBorder setPosition:ccp(241.5, 440.5)];
+    [enemyHpBarProgressBorder setPosition:ccp(241.5, 440.5+plusSize)];
     [self addChild: enemyHpBarProgressBorder z:1];
     
     CCSprite * enemyCharacterImage = [CCSprite spriteWithFile: @"main_game_guage_cha_enemy.png"];
-    [enemyCharacterImage setPosition:ccp(293, 451)];
+    [enemyCharacterImage setPosition:ccp(293, 451+plusSize)];
     [self addChild: enemyCharacterImage z:2];
 
     
@@ -981,7 +1030,7 @@ enum {
 //        enemyHpProgressFrom.midpoint = ccp(1,_currentEnemyHp);
         enemyHpProgressFrom.midpoint = ccp(1,0);
 
-        enemyHpProgressFrom.position=ccp(225, 445);
+        enemyHpProgressFrom.position=ccp(225, 445+plusSize);
         enemyHpProgressFrom.anchorPoint = ccp(0.50, 0.50);
         enemyHpProgressFrom.percentage=100;
         [enemyHpProgressFrom setBarChangeRate:(ccp(1,0))];
