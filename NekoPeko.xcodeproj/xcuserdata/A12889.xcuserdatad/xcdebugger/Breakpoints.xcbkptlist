@@ -13,7 +13,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "230"
          endingLineNumber = "230"
-         landmarkName = "-startGamePlay"
+         landmarkName = "-startGamePlay:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -39,7 +39,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "77"
          endingLineNumber = "77"
-         landmarkName = "-onEnter"
+         landmarkName = "-setRegisterImages:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -52,7 +52,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "216"
          endingLineNumber = "216"
-         landmarkName = "-receivedMessageFromRegisterToServer:"
+         landmarkName = "-receivedErrorFromAction:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -78,7 +78,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "588"
          endingLineNumber = "588"
-         landmarkName = "-plusCountCombo"
+         landmarkName = "-setTiles"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -243,7 +243,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "992"
          endingLineNumber = "992"
-         landmarkName = "-setPlayerHP"
+         landmarkName = "-setPlayerHP:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -256,7 +256,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "94"
          endingLineNumber = "94"
-         landmarkName = "-startGamePlay"
+         landmarkName = "-startGamePlay:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -464,7 +464,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "38"
          endingLineNumber = "38"
-         landmarkName = "-onEnter"
+         landmarkName = "-setRegisterImages:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

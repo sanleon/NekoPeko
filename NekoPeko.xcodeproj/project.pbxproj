@@ -2578,8 +2578,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sungbum Jo (7XRLGT5RWB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sungbum Jo (7XRLGT5RWB)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sungbum Jo";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sungbum Jo";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NanClickBoom/Prefix.pch;
@@ -2594,8 +2594,8 @@
 					"-lz",
 				);
 				PRODUCT_NAME = NekoPeko;
-				PROVISIONING_PROFILE = "FB03A3FB-4C1C-4112-8262-93FCF2884D57";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FB03A3FB-4C1C-4112-8262-93FCF2884D57";
+				PROVISIONING_PROFILE = "09C8BFD9-20DB-4EAC-AD8F-1FD06748B571";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "09C8BFD9-20DB-4EAC-AD8F-1FD06748B571";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

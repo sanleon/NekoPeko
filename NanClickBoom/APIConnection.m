@@ -42,8 +42,9 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket{
+    [self setIsConnected:YES];
 //    [socket send:@"{\"id\":\"1\"}"];
-    NSLog(@"Opened");
+//    NSLog(@"Opened");
 }
 
 - (void) sendMessage:(NSString*) message {
@@ -56,15 +57,18 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
     if (message != nil) {
         NSDictionary *messageDic = (NSDictionary*)[message JSONValue];
-        NSLog(@"didReceiveMessage: %@", [message JSONValue]);
-        [self receiveMessage:messageDic];
+        // TODO
+//        NSLog(@"didReceiveMessage: %@", [message JSONValue]);
+        if (self) {
+            [self receiveMessage:messageDic];
+        }
     }
 
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
     if (error) {
-        if (self && [self delegate]) {
+        if (webSocket != nil && [self isConnected]) {
             [[self delegate] receivedErrorFromAction:[error description]];
         }
     }
@@ -84,6 +88,7 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 
 - (void) closeToServer {
     //[socket closeWithCode:1000 reason:@"Close From Application"];
+    [self setIsConnected:NO];
     [self sendMessage:@"{\"close\":\"\"}"];
     [socket release];
     socket = nil;
@@ -92,7 +97,7 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 - (void) receiveMessage:(NSDictionary*) messageDic
 {
     // TODO 修正
-    if (messageDic != nil) {
+    if (messageDic != nil && [self isConnected]) {
         
 
 //        if ([messageDic objectForKey:RESULT_ERROR] != nil) {
@@ -198,7 +203,7 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
 
 - (void) receivedError:(NSString*)message
 {
-   NSLog(@"receivedError : %@", message); 
+//   NSLog(@"receivedError : %@", message); 
 }
 
 - (void) receivedMessageFromLogin:(NSDictionary *)messageDic
@@ -215,7 +220,7 @@ static NSString* WEBSOCKET_SERVER_PORT = @"13404";
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         
         [userDefaults setObject:nil forKey:@"CurrentGameCount"];
-        NSLog(@"Login result : %d", result);
+//        NSLog(@"Login result : %d", result);
     }
     
     if (result) {

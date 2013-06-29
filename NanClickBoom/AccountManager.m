@@ -40,9 +40,9 @@ static NSString *RECEIPT_SERVICE_NAME = @"NekoPekoService";
             
             OSStatus err = SecItemAdd((CFDictionaryRef) query, NULL);
             if (err == noErr) {
-                NSLog(@"SecItemAdd: noErr");
+//                NSLog(@"SecItemAdd: noErr");
             } else {
-                NSLog(@"SecItemAdd: error(%ld)", err);
+//                NSLog(@"SecItemAdd: error(%ld)", err);
             }
         }
     }
@@ -67,15 +67,15 @@ static NSString *RECEIPT_SERVICE_NAME = @"NekoPekoService";
     OSStatus err =SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef*)&IdData);
     NSString*uuidString =nil;
     if(err ==noErr) {
-        NSLog(@"SecItemCopyMatching: noErr");
+//        NSLog(@"SecItemCopyMatching: noErr");
         uuidString = [[[NSString alloc]initWithData:IdData encoding:NSUTF8StringEncoding]autorelease];
         
                
-        NSLog(@"uuidString Data : %@", uuidString);
+//        NSLog(@"uuidString Data : %@", uuidString);
     }else if(err ==errSecItemNotFound) {
-        NSLog(@"SecItemCopyMatching: errSecItemNotFound");
+//        NSLog(@"SecItemCopyMatching: errSecItemNotFound");
     }else{
-        NSLog(@"SecItemCopyMatching : error(%ld)", err);
+//        NSLog(@"SecItemCopyMatching : error(%ld)", err);
     }
     return uuidString;
 }
@@ -90,9 +90,9 @@ static NSString *RECEIPT_SERVICE_NAME = @"NekoPekoService";
     OSStatus err =SecItemDelete((CFDictionaryRef)query);
     
     if(err ==noErr) {
-        NSLog(@"SecItemDelete: noErr");
+//        NSLog(@"SecItemDelete: noErr");
     }else{
-        NSLog(@"SecItemDelete: error(%ld)", err);
+//        NSLog(@"SecItemDelete: error(%ld)", err);
     }
 }
 
@@ -112,20 +112,20 @@ static NSString *RECEIPT_SERVICE_NAME = @"NekoPekoService";
     NSMutableArray*arrayData =nil;
     OSStatus err =SecItemCopyMatching((CFDictionaryRef)query,(CFTypeRef*)&arrayData);
     if(err ==noErr) {
-        NSLog(@"SecItemCopyMatching: noErr");
-        NSLog(@"result : %@", arrayData);
+//        NSLog(@"SecItemCopyMatching: noErr");
+//        NSLog(@"result : %@", arrayData);
         for(NSMutableDictionary*dic in arrayData) {
             //            NSString *encodingRecipt = [dic objectForKey:@"acct"];
             NSString*accountId = [dic objectForKey:@"acct"];
             if(accountId !=nil) {
-                NSLog(@"UUID : %@", accountId);
+//                NSLog(@"UUID : %@", accountId);
                 
             }
         }
     }else if(err ==errSecItemNotFound) {
-        NSLog(@"SecItemCopyMatching: errSecItemNotFound");
+//        NSLog(@"SecItemCopyMatching: errSecItemNotFound");
     }else{
-        NSLog(@"SecItemCopyMatching: error(%ld)", err);
+//        NSLog(@"SecItemCopyMatching: error(%ld)", err);
     }
     return arrayData;
 }

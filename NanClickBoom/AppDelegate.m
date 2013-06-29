@@ -25,7 +25,7 @@ BOOL isConnecting;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 //    [AccountManager deleteAllAccount];
-            NSLog(@"%@",@"didFinishLaunchingWithOptions");
+//            NSLog(@"%@",@"didFinishLaunchingWithOptions");
     apiConnection = [APIConnection sharedAPIConnection];
     [apiConnection setActionType:CONNECT_TO_SERVER];
     isConnecting = YES;
@@ -115,7 +115,7 @@ BOOL isConnecting;
 // getting a call, pause the game
 -(void) applicationWillResignActive:(UIApplication *)application
 {
-        NSLog(@"%@",@"applicationWillResignActive");
+//        NSLog(@"%@",@"applicationWillResignActive");
 	if( [navController_ visibleViewController] == director_ )
 		[director_ pause];
 }
@@ -123,7 +123,7 @@ BOOL isConnecting;
 // call got rejected
 -(void) applicationDidBecomeActive:(UIApplication *)application
 {
-    NSLog(@"%@",@"applicationDidBecomeActive");
+//    NSLog(@"%@",@"applicationDidBecomeActive");
     apiConnection = [APIConnection sharedAPIConnection];
     if( [navController_ visibleViewController] == director_ ) {
         NSLog(@"%@",@"resume");
@@ -132,7 +132,7 @@ BOOL isConnecting;
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString* actionType = [userDefaults objectForKey:ACTION_TYPE];
         
-        if ([actionType isEqualToString:ACTION_BACKGROUND]) {
+        if (director_ != nil && [actionType isEqualToString:ACTION_BACKGROUND]) {
             [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:[IntroLayer scene] withColor:ccWHITE]];
         }
     }
@@ -153,7 +153,7 @@ BOOL isConnecting;
 
 -(void) applicationDidEnterBackground:(UIApplication*)application
 {
-    NSLog(@"%@",@"applicationDidEnterBackground");
+//    NSLog(@"%@",@"applicationDidEnterBackground");
 //    [apiConnection closeToServer];
 //    IntroLayer *introLayer = [IntroLayer node];
 //    [introLayer setIsLogined:NO];
@@ -171,7 +171,7 @@ BOOL isConnecting;
 -(void) applicationWillEnterForeground:(UIApplication*)application
 {
 
-    NSLog(@"%@",@"applicationWillEnterForeground");
+//    NSLog(@"%@",@"applicationWillEnterForeground");
 	if( [navController_ visibleViewController] == director_ )
 		[director_ startAnimation];
     

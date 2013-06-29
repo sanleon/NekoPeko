@@ -103,6 +103,7 @@
 - (void) onEnter
 {
     [super onEnter];
+    [someField setHidden:YES];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:ACTION_REGISTER forKey:ACTION_TYPE];
     [userDefaults synchronize];
