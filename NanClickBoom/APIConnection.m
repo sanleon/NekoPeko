@@ -20,7 +20,7 @@
 
 static NSString* WEBSOCKET_SERVER_ADDRESS = @"neko.tutatuta.tk";
 
-static NSString* WEBSOCKET_SERVER_PORT = @"13404";
+static NSString* WEBSOCKET_SERVER_PORT = @"15904";
 
 - (id) init
 {
