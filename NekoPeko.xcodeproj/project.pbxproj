@@ -212,7 +212,6 @@
 		118C00F616E18A850098388D /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 118C00F516E18A850098388D /* vec4.c */; };
 		118C00FB16E18A850098388D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C00FA16E18A850098388D /* main.m */; };
 		118C00FE16E18A850098388D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C00FD16E18A850098388D /* AppDelegate.m */; };
-		118C010116E18A850098388D /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C010016E18A850098388D /* HelloWorldLayer.m */; };
 		118C010416E18A850098388D /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C010316E18A850098388D /* IntroLayer.m */; };
 		118C010C16E18B6A0098388D /* LoginLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C010B16E18B6A0098388D /* LoginLayer.m */; };
 		118C011316E198B20098388D /* GameLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 118C011216E198B10098388D /* GameLayer.m */; };
@@ -246,7 +245,6 @@
 		118CFF7D16E18A820098388D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 118CFF7C16E18A820098388D /* UIKit.framework */; };
 		118CFF7F16E18A820098388D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 118CFF7E16E18A820098388D /* Foundation.framework */; };
 		118CFF8116E18A820098388D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 118CFF8016E18A820098388D /* CoreGraphics.framework */; };
-		118CFF8316E18A820098388D /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 118CFF8216E18A820098388D /* GameKit.framework */; };
 		118CFF8716E18A820098388D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 118CFF8616E18A820098388D /* Default.png */; };
 		118CFF8916E18A820098388D /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 118CFF8816E18A820098388D /* Default-Landscape~ipad.png */; };
 		118CFF8B16E18A820098388D /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 118CFF8A16E18A820098388D /* fps_images.png */; };
@@ -625,6 +623,7 @@
 		115A2BA916F5D4960075044C /* main_game_sakana_no16_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "main_game_sakana_no16_2@2x.png"; path = "sakana/main_game_sakana_no16_2@2x.png"; sourceTree = "<group>"; };
 		115A2BEC16F5E8ED0075044C /* main_game_sakana_bone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_game_sakana_bone.png; path = sakana/main_game_sakana_bone.png; sourceTree = "<group>"; };
 		115A2BED16F5E8ED0075044C /* main_game_sakana_bone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "main_game_sakana_bone@2x.png"; path = "sakana/main_game_sakana_bone@2x.png"; sourceTree = "<group>"; };
+		115E365018BB8F4A008E5FD4 /* NekoPeko.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NekoPeko.entitlements; sourceTree = "<group>"; };
 		1184B74F16EC29E8009872D6 /* ScoreAddUpLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreAddUpLayer.h; sourceTree = "<group>"; };
 		1184B75016EC29E9009872D6 /* ScoreAddUpLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreAddUpLayer.m; sourceTree = "<group>"; };
 		118C000016E18A830098388D /* CCMotionStreak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCMotionStreak.h; path = libs/cocos2d/CCMotionStreak.h; sourceTree = "<group>"; };
@@ -798,8 +797,6 @@
 		118C00FA16E18A850098388D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		118C00FC16E18A850098388D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		118C00FD16E18A850098388D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		118C00FF16E18A850098388D /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		118C010016E18A850098388D /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		118C010216E18A850098388D /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		118C010316E18A850098388D /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		118C010A16E18B690098388D /* LoginLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginLayer.h; sourceTree = "<group>"; };
@@ -849,7 +846,6 @@
 		118CFF7C16E18A820098388D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		118CFF7E16E18A820098388D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		118CFF8016E18A820098388D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		118CFF8216E18A820098388D /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		118CFF8616E18A820098388D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		118CFF8816E18A820098388D /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Resources/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		118CFF8A16E18A820098388D /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
@@ -1115,7 +1111,6 @@
 				118CFF7D16E18A820098388D /* UIKit.framework in Frameworks */,
 				118CFF7F16E18A820098388D /* Foundation.framework in Frameworks */,
 				118CFF8116E18A820098388D /* CoreGraphics.framework in Frameworks */,
-				118CFF8316E18A820098388D /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1535,6 +1530,7 @@
 		118CFF6616E18A810098388D = {
 			isa = PBXGroup;
 			children = (
+				115E365018BB8F4A008E5FD4 /* NekoPeko.entitlements */,
 				11ED985D176D900600CDF6D9 /* Default-568h@2x.png */,
 				1112197016EC3CBD00F866FF /* base64.h */,
 				1112197116EC3CBD00F866FF /* NSData+SRB64Additions.h */,
@@ -1569,7 +1565,6 @@
 				118CFF7C16E18A820098388D /* UIKit.framework */,
 				118CFF7E16E18A820098388D /* Foundation.framework */,
 				118CFF8016E18A820098388D /* CoreGraphics.framework */,
-				118CFF8216E18A820098388D /* GameKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1583,9 +1578,7 @@
 				118C018F16E79D6C0098388D /* SBJSON */,
 				118C00FC16E18A850098388D /* AppDelegate.h */,
 				118C00FD16E18A850098388D /* AppDelegate.m */,
-				118C00FF16E18A850098388D /* HelloWorldLayer.h */,
 				118C010216E18A850098388D /* IntroLayer.h */,
-				118C010016E18A850098388D /* HelloWorldLayer.m */,
 				118C010316E18A850098388D /* IntroLayer.m */,
 				118C010A16E18B690098388D /* LoginLayer.h */,
 				118C010B16E18B6A0098388D /* LoginLayer.m */,
@@ -2000,6 +1993,22 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
+				TargetAttributes = {
+					118CFF6E16E18A820098388D = {
+						DevelopmentTeam = VNL2937QG4;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 118CFF6A16E18A810098388D /* Build configuration list for PBXProject "NekoPeko" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2477,7 +2486,6 @@
 				118C00F616E18A850098388D /* vec4.c in Sources */,
 				118C00FB16E18A850098388D /* main.m in Sources */,
 				118C00FE16E18A850098388D /* AppDelegate.m in Sources */,
-				118C010116E18A850098388D /* HelloWorldLayer.m in Sources */,
 				118C010416E18A850098388D /* IntroLayer.m in Sources */,
 				118C010C16E18B6A0098388D /* LoginLayer.m in Sources */,
 				118C011316E198B20098388D /* GameLayer.m in Sources */,
@@ -2551,11 +2559,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sungbum Jo (7XRLGT5RWB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NanClickBoom/Prefix.pch;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/SocketSocket/**",
 					"\"NanClickBoom/libs/kazmath/include\"",
@@ -2568,7 +2577,7 @@
 				);
 				PRODUCT_NAME = NekoPeko;
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FB03A3FB-4C1C-4112-8262-93FCF2884D57";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9605E6BF-ECE6-4833-8E91-238802B821D5";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2578,11 +2587,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sungbum Jo";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sungbum Jo";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NanClickBoom/Prefix.pch;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/SocketSocket/**",
 					"\"NanClickBoom/libs/kazmath/include\"",
@@ -2594,8 +2604,8 @@
 					"-lz",
 				);
 				PRODUCT_NAME = NekoPeko;
-				PROVISIONING_PROFILE = "09C8BFD9-20DB-4EAC-AD8F-1FD06748B571";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "09C8BFD9-20DB-4EAC-AD8F-1FD06748B571";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C06DCCA-F8D8-4D54-8E7B-EED0F4EB8E35";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

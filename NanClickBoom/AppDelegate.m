@@ -24,7 +24,7 @@ BOOL isConnecting;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [AccountManager deleteAllAccount];
+//    [AccountManager deleteAllAccount];
 //            NSLog(@"%@",@"didFinishLaunchingWithOptions");
     apiConnection = [APIConnection sharedAPIConnection];
     [apiConnection setActionType:CONNECT_TO_SERVER];
